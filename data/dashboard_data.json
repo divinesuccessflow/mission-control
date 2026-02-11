@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-11T07:28:08.215290",
+  "lastUpdated": "2026-02-11T07:31:21.794326",
   "projects": [
     {
       "id": "AI_Prosperity",
@@ -246,5 +246,11 @@
       "Be Indifferent",
       "Pull Don't Push"
     ]
+  },
+  "security": {
+    "last_audit": "2026-02-11T07:31:21.794322",
+    "status": "warnings",
+    "critical": 0,
+    "warnings": 3
   }
 }
