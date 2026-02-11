@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-11T09:09:10.669550",
+  "lastUpdated": "2026-02-11T09:42:55.624568",
   "projects": [
     {
       "id": "AI_Prosperity",
@@ -66,11 +66,11 @@
     },
     {
       "id": "punch_tantra",
-      "name": "\ud83e\udd9c Punch-Tantra",
+      "name": "\ud83e\udd81 Punch-Tantra: AI-First",
       "type": "content_series",
       "status": "complete",
       "path": "Projects/Branding/PUNCH_TANTRA.md",
-      "description": "Ancient wisdom, modern punch - business fables",
+      "description": "Fables for the One-Person Empire",
       "created": "2026-02-11"
     }
   ],
