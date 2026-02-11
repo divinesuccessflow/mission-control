@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-11T07:37:41.559593",
+  "lastUpdated": "2026-02-11T07:44:05.360808",
   "projects": [
     {
       "id": "AI_Prosperity",
@@ -70,6 +70,15 @@
       "type": "chrome_extension",
       "status": "complete",
       "path": "Projects/Chrome_Extensions/openclaw-sidebar",
+      "created": "2026-02-11"
+    },
+    {
+      "id": "ai_entrepreneur_course",
+      "name": "\u2600\ufe0f AI Entrepreneur (10 Weeks)",
+      "type": "course",
+      "status": "complete",
+      "path": "Projects/Courses/AI_Entrepreneur_10_Weeks",
+      "pricing": "$297 / $997 / $2,997 / $9,997",
       "created": "2026-02-11"
     }
   ],
