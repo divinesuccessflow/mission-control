@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | Divine Success Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-hover: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --gold: #c9a84c;
+            --gold-dim: #8a7535;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --orange: #f97316;
+            --cyan: #06b6d4;
+            --border: #2a2a35;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.5; }
+        
+        .header { background: linear-gradient(135deg, var(--bg-secondary), #1a1520); border-bottom: 1px solid var(--border); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+        .logo-text { font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .header-stats { display: flex; gap: 2rem; }
+        .header-stat { text-align: center; }
+        .header-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .header-stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .header-time { text-align: right; }
+        .header-date { font-size: 0.875rem; color: var(--text-secondary); }
+        .header-clock { font-size: 1.75rem; font-weight: 600; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+        
+        .nav { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; gap: 0.25rem; overflow-x: auto; }
+        .nav-item { padding: 0.875rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+        .nav-item:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+        
+        .container { max-width: 1900px; margin: 0 auto; padding: 1.5rem; }
+        
+        /* Quick Stats Bar */
+        .quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .quick-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; text-align: center; transition: all 0.2s; }
+        .quick-stat:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+        .quick-stat-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .quick-stat-value { font-size: 1.75rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .quick-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .quick-stat.gold .quick-stat-value { color: var(--gold); }
+        .quick-stat.green .quick-stat-value { color: var(--green); }
+        .quick-stat.blue .quick-stat-value { color: var(--blue); }
+        .quick-stat.purple .quick-stat-value { color: var(--purple); }
+        .quick-stat.orange .quick-stat-value { color: var(--orange); }
+        .quick-stat.cyan .quick-stat-value { color: var(--cyan); }
+        
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 1200px) { .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+        
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .card-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        
+        .section { margin-bottom: 2rem; display: none; }
+        .section.active { display: block; }
+        
+        /* Launch Countdown */
+        .countdown { background: linear-gradient(135deg, #1a1520, var(--bg-card)); border: 1px solid var(--gold-dim); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .countdown-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .countdown-title { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+        .countdown-date { color: var(--text-secondary); }
+        .countdown-timer { display: flex; gap: 1rem; justify-content: center; }
+        .countdown-unit { text-align: center; background: var(--bg-hover); padding: 1rem 1.5rem; border-radius: var(--radius-sm); min-width: 80px; }
+        .countdown-value { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .countdown-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        
+        /* Progress Bars */
+        .progress-bar { height: 8px; background: var(--bg-hover); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+        .progress-fill.gold { background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+        .progress-fill.green { background: linear-gradient(90deg, #166534, var(--green)); }
+        .progress-fill.blue { background: linear-gradient(90deg, #1d4ed8, var(--blue)); }
+        
+        /* Tags */
+        .tag { display: inline-block; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 500; text-transform: uppercase; }
+        .tag-building { background: rgba(249,115,22,0.2); color: var(--orange); }
+        .tag-ready { background: rgba(34,197,94,0.2); color: var(--green); }
+        .tag-pending { background: rgba(168,85,247,0.2); color: var(--purple); }
+        .tag-hot { background: rgba(239,68,68,0.2); color: var(--red); }
+        .tag-active { background: rgba(34,197,94,0.2); color: var(--green); }
+        
+        /* Build Cards */
+        .build-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 0.75rem; }
+        .build-card:hover { border-color: var(--gold-dim); }
+        .build-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+        .build-name { font-weight: 600; }
+        .build-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .build-progress { display: flex; align-items: center; gap: 0.5rem; }
+        .build-progress-text { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        
+        /* Teams Grid */
+        .team-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; transition: all 0.2s; }
+        .team-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+        .team-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .team-name { font-size: 0.7rem; font-weight: 500; }
+        .team-status { font-size: 0.6rem; color: var(--text-muted); }
+        
+        /* Quick Links */
+        .quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
+        .quick-link { background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; text-decoration: none; color: var(--text-primary); transition: all 0.2s; font-size: 0.8rem; }
+        .quick-link:hover { border-color: var(--gold); background: var(--bg-card); }
+        .quick-link-icon { font-size: 1.25rem; display: block; margin-bottom: 0.25rem; }
+        
+        /* Opportunity Card */
+        .opp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 0.5rem; }
+        .opp-header { display: flex; justify-content: space-between; align-items: center; }
+        .opp-name { font-weight: 500; font-size: 0.875rem; }
+        .opp-score { font-family: 'JetBrains Mono', monospace; color: var(--gold); font-weight: 600; }
+        .opp-meta { font-size: 0.7rem; color: var(--text-muted); }
+        
+        /* Revenue Widget */
+        .revenue-widget { background: linear-gradient(135deg, #1a2520, var(--bg-card)); border: 1px solid var(--green); border-radius: var(--radius); padding: 1.25rem; }
+        .revenue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .revenue-title { font-weight: 600; color: var(--green); }
+        .revenue-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+        .revenue-item { text-align: center; padding: 0.5rem; background: var(--bg-hover); border-radius: var(--radius-sm); }
+        .revenue-value { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--green); }
+        .revenue-label { font-size: 0.65rem; color: var(--text-muted); }
+        
+        /* List styles */
+        .list { list-style: none; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); gap: 0.5rem; }
+        .list-item:last-child { border-bottom: none; }
+        .list-item-content { flex: 1; min-width: 0; }
+        .list-item-title { font-weight: 500; font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .list-item-sub { font-size: 0.7rem; color: var(--text-muted); }
+        
+        /* Buttons */
+        .btn { padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .btn-primary { background: var(--gold); color: var(--bg-primary); }
+        .btn-primary:hover { background: var(--gold-dim); }
+        .btn-secondary { background: var(--bg-hover); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+        
+        /* Sync indicator */
+        .sync-indicator { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-muted); }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        /* 711 Goal */
+        .goal-711 { background: linear-gradient(135deg, #201a15, var(--bg-card)); border: 1px solid var(--gold-dim); border-radius: var(--radius); padding: 1rem; text-align: center; }
+        .goal-711-value { font-size: 3rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .goal-711-label { font-size: 0.8rem; color: var(--text-secondary); }
+        .goal-711-target { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <div class="logo-text">Mission Control</div>
+                <div class="logo-sub">Divine Success Flow • 711 Companies</div>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-revenue">₹0</div>
+                <div class="header-stat-label">Today's Revenue</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-pipeline">$10.4K</div>
+                <div class="header-stat-label">Pipeline</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-builds">3</div>
+                <div class="header-stat-label">Active Builds</div>
+            </div>
+        </div>
+        <div class="sync-indicator">
+            <div class="sync-dot"></div>
+            <span>Live • <span id="lastSync">Just now</span></span>
+        </div>
+        <div class="header-time">
+            <div class="header-date" id="currentDate"></div>
+            <div class="header-clock" id="currentTime"></div>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="nav-item active" data-section="dashboard">🎯 Dashboard</div>
+        <div class="nav-item" data-section="builds">🔨 Active Builds</div>
+        <div class="nav-item" data-section="teams">👥 Divine Teams</div>
+        <div class="nav-item" data-section="opportunities">💡 Opportunities</div>
+        <div class="nav-item" data-section="leads">📊 Leads</div>
+        <div class="nav-item" data-section="projects">📁 Projects</div>
+        <div class="nav-item" data-section="revenue">💰 Revenue</div>
+        <div class="nav-item" data-section="companies">🏢 711 Goal</div>
+        <div class="nav-item" data-section="knowledge">📚 Knowledge</div>
+        <div class="nav-item" data-section="links">🔗 Quick Links</div>
+    </nav>
+    
+    <main class="container">
+        <!-- DASHBOARD -->
+        <section class="section active" id="dashboard">
+            <!-- AI Prosperity Countdown -->
+            <div class="countdown">
+                <div class="countdown-header">
+                    <div class="countdown-title">🚀 AI Prosperity 4.0 Launch</div>
+                    <div class="countdown-date">March 11, 2026</div>
+                </div>
+                <div class="countdown-timer">
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-days">32</div><div class="countdown-label">Days</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-mins">00</div><div class="countdown-label">Minutes</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-secs">00</div><div class="countdown-label">Seconds</div></div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="quick-stat gold">
+                    <div class="quick-stat-icon">🏢</div>
+                    <div class="quick-stat-value">4</div>
+                    <div class="quick-stat-label">Companies</div>
+                </div>
+                <div class="quick-stat green">
+                    <div class="quick-stat-icon">👥</div>
+                    <div class="quick-stat-value">21</div>
+                    <div class="quick-stat-label">Divine Teams</div>
+                </div>
+                <div class="quick-stat blue">
+                    <div class="quick-stat-icon">🔨</div>
+                    <div class="quick-stat-value">9</div>
+                    <div class="quick-stat-label">Extensions Building</div>
+                </div>
+                <div class="quick-stat purple">
+                    <div class="quick-stat-icon">📊</div>
+                    <div class="quick-stat-value">38</div>
+                    <div class="quick-stat-label">Active Leads</div>
+                </div>
+                <div class="quick-stat orange">
+                    <div class="quick-stat-icon">📁</div>
+                    <div class="quick-stat-value">8</div>
+                    <div class="quick-stat-label">Projects</div>
+                </div>
+                <div class="quick-stat cyan">
+                    <div class="quick-stat-icon">🎬</div>
+                    <div class="quick-stat-value">3,241</div>
+                    <div class="quick-stat-label">Transcripts</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-3">
+                <!-- Active Builds -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔨 Active Builds</span>
+                        <span class="tag tag-building">3 in progress</span>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">🖊️ AI Writing Assistant</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">Grammarly killer • $5/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:35%"></div></div>
+                            <span class="build-progress-text">35%</span>
+                        </div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">🔗 LinkedIn Scraper</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">Lusha killer • $9/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:25%"></div></div>
+                            <span class="build-progress-text">25%</span>
+                        </div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">📺 YouTube SEO Tool</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">TubeBuddy killer • $4/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:20%"></div></div>
+                            <span class="build-progress-text">20%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HOT Leads -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔥 HOT Leads</span>
+                        <span class="tag tag-hot">Action Today</span>
+                    </div>
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Zhamila 🔥</div>
+                                <div class="list-item-sub">€1,000 budget • SME Coaching</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">DM</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Zahir Kurwale 🔥</div>
+                                <div class="list-item-sub">$500 budget • Inkspire Digital</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">DM</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Fadma 🔥</div>
+                                <div class="list-item-sub">€47 close • Already replied</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Close</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">16 Viral Content Leads</div>
+                                <div class="list-item-sub">DMs ready • Send today</div>
+                            </div>
+                            <button class="btn btn-sm btn-secondary">View</button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Revenue Today -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">💰 Revenue</span>
+                        <span style="font-family:'JetBrains Mono';color:var(--gold)">Target: ₹1L/day</span>
+                    </div>
+                    <div class="revenue-widget" style="border:none;padding:0;background:none;">
+                        <div class="revenue-grid">
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">Today</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">This Week</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">Feb MTD</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">$10.4K</div>
+                                <div class="revenue-label">Pipeline</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Progress to ₹1L/day</div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-2" style="margin-top:1.5rem;">
+                <!-- 711 Goal Widget -->
+                <div class="goal-711">
+                    <div class="goal-711-value">4<span style="font-size:1.5rem;color:var(--text-muted)">/711</span></div>
+                    <div class="goal-711-label">Companies Built</div>
+                    <div class="goal-711-target">Target: 711 companies generating ₹1Cr/month by Dec 2026</div>
+                    <div class="progress-bar" style="margin-top:1rem;"><div class="progress-fill gold" style="width:0.5%"></div></div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔗 Quick Links</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="https://app.clickup.com/90161379676" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📋</span>ClickUp
+                        </a>
+                        <a href="https://github.com/divinesuccessflow" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🐙</span>GitHub
+                        </a>
+                        <a href="https://supabase.com/dashboard" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🗄️</span>Supabase
+                        </a>
+                        <a href="https://divinesuccessflow.github.io/speaker-blueprint-system/" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🎤</span>Speaker BP
+                        </a>
+                        <a href="file:///Users/yashaswisugatoor/clawd/Projects/Divine_Leads_CRM/index.html" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📊</span>CRM
+                        </a>
+                        <a href="https://forms.gle/zgQ7T6cJuQtojezg9" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📝</span>AI Genie Form
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACTIVE BUILDS -->
+        <section class="section" id="builds">
+            <h2 style="margin-bottom:1rem;">🔨 Active Builds — Chrome Extensions</h2>
+            <div class="quick-stats" style="margin-bottom:1.5rem;">
+                <div class="quick-stat orange"><div class="quick-stat-value">3</div><div class="quick-stat-label">Building Now</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value">6</div><div class="quick-stat-label">In Queue</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">0</div><div class="quick-stat-label">Submitted</div></div>
+                <div class="quick-stat gold"><div class="quick-stat-value">0</div><div class="quick-stat-label">Live</div></div>
+            </div>
+            <div class="grid grid-3">
+                <!-- Batch 1 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 1 (Feb 7-9)</span><span class="tag tag-building">Building</span></div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🖊️ AI Writing Assistant</span></div>
+                        <div class="build-meta">Grammarly ($12) → $5/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:35%"></div></div><span class="build-progress-text">35%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🔗 LinkedIn Scraper Pro</span></div>
+                        <div class="build-meta">Lusha ($39) → $9/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:25%"></div></div><span class="build-progress-text">25%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">📺 YouTube SEO Master</span></div>
+                        <div class="build-meta">TubeBuddy ($9) → $4/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:20%"></div></div><span class="build-progress-text">20%</span></div>
+                    </div>
+                </div>
+                <!-- Batch 2 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 2 (Feb 10-11)</span><span class="tag tag-pending">Queued</span></div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">📧 AI Email Finder</div>
+                        <div class="build-meta">Hunter ($49) → $15/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">🎥 Screen Recorder AI</div>
+                        <div class="build-meta">Loom ($8) → $3/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">🎤 Meeting Notes AI</div>
+                        <div class="build-meta">Fireflies ($10) → $5/mo</div>
+                    </div>
+                </div>
+                <!-- Batch 3 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 3 (Feb 12-13)</span><span class="tag tag-pending">Queued</span></div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">📑 Tab Manager Pro</div>
+                        <div class="build-meta">Momentum ($3) → $2/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">💰 Price Tracker AI</div>
+                        <div class="build-meta">Honey (free) → $2/mo premium</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">⚡ Automation Builder</div>
+                        <div class="build-meta">Bardeen ($10) → $7/mo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- DIVINE TEAMS -->
+        <section class="section" id="teams">
+            <h2 style="margin-bottom:1rem;">👥 Divine Teams — 21 Active</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.75rem;">
+                <div class="team-card"><div class="team-icon">💼</div><div class="team-name">Sales</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📣</div><div class="team-name">Marketing</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">✍️</div><div class="team-name">Content</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💻</div><div class="team-name">Dev</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎨</div><div class="team-name">Design</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📊</div><div class="team-name">Analytics</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎯</div><div class="team-name">Growth</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🤖</div><div class="team-name">AI</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎬</div><div class="team-name">Video</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎵</div><div class="team-name">Music</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📚</div><div class="team-name">Research</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🌐</div><div class="team-name">SEO</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📧</div><div class="team-name">Email</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🔗</div><div class="team-name">LinkedIn</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🚀</div><div class="team-name">Launch</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💰</div><div class="team-name">Finance</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🤝</div><div class="team-name">Affiliate</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🔍</div><div class="team-name">Opportunity</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💎</div><div class="team-name">Chrome Ext</div><div class="team-status">Building</div></div>
+                <div class="team-card"><div class="team-icon">📖</div><div class="team-name">Sanskrit</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🙏</div><div class="team-name">Nandini</div><div class="team-status">Paused</div></div>
+            </div>
+        </section>
+        
+        <!-- OPPORTUNITIES -->
+        <section class="section" id="opportunities">
+            <h2 style="margin-bottom:1rem;">💡 Today's Top Opportunities</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🎯 Chrome Extensions</span></div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">AI Writing Assistant</span><span class="opp-score">92/100</span></div>
+                        <div class="opp-meta">Beat Grammarly ($12→$5) • $500K MRR potential</div>
+                    </div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">LinkedIn Scraper</span><span class="opp-score">88/100</span></div>
+                        <div class="opp-meta">Beat Lusha ($39→$9) • $200K MRR potential</div>
+                    </div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">YouTube SEO Tool</span><span class="opp-score">85/100</span></div>
+                        <div class="opp-meta">Beat TubeBuddy ($9→$4) • $200K MRR potential</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📊 Opportunity Stats</span></div>
+                    <div class="revenue-grid" style="margin-top:0.5rem;">
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--cyan)">100</div><div class="revenue-label">Daily Finds</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--gold)">10</div><div class="revenue-label">Top Scored</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--green)">3</div><div class="revenue-label">Building</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--purple)">6</div><div class="revenue-label">Queued</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PLACEHOLDER SECTIONS -->
+        <section class="section" id="leads"><h2>📊 Leads — See original Command Center</h2><p style="color:var(--text-muted)">38 leads across 3 campaigns</p></section>
+        <section class="section" id="projects"><h2>📁 Projects — See original Command Center</h2><p style="color:var(--text-muted)">8 active projects</p></section>
+        <section class="section" id="revenue"><h2>💰 Revenue Tracking</h2><p style="color:var(--text-muted)">Coming: Stripe, Gumroad, PayPal integrations</p></section>
+        <section class="section" id="companies"><h2>🏢 711 Companies Goal</h2>
+            <div class="goal-711" style="max-width:400px;">
+                <div class="goal-711-value">4<span style="font-size:1.5rem;color:var(--text-muted)">/711</span></div>
+                <div class="goal-711-label">Companies Built</div>
+                <div style="margin-top:1rem;text-align:left;font-size:0.875rem;">
+                    <div>1. Divine Success Flow (Holding)</div>
+                    <div>2. AI Leads Engine (Agency)</div>
+                    <div>3. Speaker Blueprint System (Product)</div>
+                    <div>4. Passenger Payback (Pre-launch)</div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="knowledge"><h2>📚 Knowledge Base</h2>
+            <div class="quick-stats">
+                <div class="quick-stat cyan"><div class="quick-stat-value">3,241</div><div class="quick-stat-label">YT Transcripts</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value">527</div><div class="quick-stat-label">Sanskrit Files</div></div>
+                <div class="quick-stat gold"><div class="quick-stat-value">21</div><div class="quick-stat-label">Team Docs</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">56</div><div class="quick-stat-label">711 OS Files</div></div>
+            </div>
+        </section>
+        <section class="section" id="links">
+            <h2 style="margin-bottom:1rem;">🔗 All Quick Links</h2>
+            <div class="quick-links" style="max-width:800px;">
+                <a href="https://app.clickup.com/90161379676" target="_blank" class="quick-link"><span class="quick-link-icon">📋</span>ClickUp</a>
+                <a href="https://github.com/divinesuccessflow" target="_blank" class="quick-link"><span class="quick-link-icon">🐙</span>GitHub</a>
+                <a href="https://supabase.com/dashboard" target="_blank" class="quick-link"><span class="quick-link-icon">🗄️</span>Supabase</a>
+                <a href="https://chrome.google.com/webstore/devconsole" target="_blank" class="quick-link"><span class="quick-link-icon">💎</span>Chrome Dev</a>
+                <a href="https://console.apify.com" target="_blank" class="quick-link"><span class="quick-link-icon">🕷️</span>Apify</a>
+                <a href="https://platform.openai.com" target="_blank" class="quick-link"><span class="quick-link-icon">🤖</span>OpenAI</a>
+                <a href="https://divinesuccessflow.github.io/speaker-blueprint-system/" target="_blank" class="quick-link"><span class="quick-link-icon">🎤</span>Speaker BP</a>
+                <a href="https://divinesuccessflow.github.io/divine-real-estate/" target="_blank" class="quick-link"><span class="quick-link-icon">🏠</span>France RE</a>
+                <a href="https://forms.gle/zgQ7T6cJuQtojezg9" target="_blank" class="quick-link"><span class="quick-link-icon">📝</span>AI Genie</a>
+                <a href="file:///Users/yashaswisugatoor/clawd/Projects/Divine_Leads_CRM/index.html" class="quick-link"><span class="quick-link-icon">📊</span>CRM</a>
+                <a href="file:///Users/yashaswisugatoor/clawd/Projects/Skool_Dashboard_Pro/index.html" class="quick-link"><span class="quick-link-icon">🎓</span>Skool Dash</a>
+                <a href="https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/" target="_blank" class="quick-link"><span class="quick-link-icon">📋</span>AI Leads Sheet</a>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+    // Time
+    function updateTime(){
+        const n=new Date();
+        document.getElementById('currentDate').textContent=n.toLocaleDateString('en-IN',{weekday:'long',month:'short',day:'numeric',year:'numeric'});
+        document.getElementById('currentTime').textContent=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    }
+    setInterval(updateTime,1000);updateTime();
+    
+    // Countdown to March 11, 2026
+    function updateCountdown(){
+        const launch = new Date('2026-03-11T00:00:00+05:30');
+        const now = new Date();
+        const diff = launch - now;
+        if(diff > 0){
+            const days = Math.floor(diff / (1000*60*60*24));
+            const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+            const secs = Math.floor((diff % (1000*60)) / 1000);
+            document.getElementById('cd-days').textContent = days;
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+            document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+            document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+        }
+    }
+    setInterval(updateCountdown,1000);updateCountdown();
+    
+    // Nav
+    document.querySelectorAll('.nav-item').forEach(i=>i.addEventListener('click',()=>{
+        document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+        i.classList.add('active');
+        document.getElementById(i.dataset.section).classList.add('active');
+    }));
+    </script>
+</body>
+</html>

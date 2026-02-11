@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Divine Mission Control - AI-powered command center for 711 companies and the 2 Crore Movement">
+    <meta name="theme-color" content="#C9A84C">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A24'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='%23C9A84C'>✦</text></svg>">
+    <title>Divine Mission Control | Where Divine Meets Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-hover: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --gold: #c9a84c;
+            --gold-dim: #8a7535;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --orange: #f97316;
+            --cyan: #06b6d4;
+            --border: #2a2a35;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.5; }
+        
+        .header { background: linear-gradient(135deg, var(--bg-secondary), #1a1520); border-bottom: 1px solid var(--border); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(201,168,76,0.3); }
+        .logo-text { font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .header-stats { display: flex; gap: 2rem; }
+        .header-stat { text-align: center; }
+        .header-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .header-stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .header-time { text-align: right; }
+        .header-date { font-size: 0.875rem; color: var(--text-secondary); }
+        .header-clock { font-size: 1.75rem; font-weight: 600; color: var(--gold); font-family: 'JetBrains Mono', monospace; }
+        
+        .nav { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; gap: 0.25rem; overflow-x: auto; }
+        .nav-item { padding: 0.875rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+        .nav-item:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+        
+        .container { max-width: 1900px; margin: 0 auto; padding: 1.5rem; }
+        
+        /* Quick Stats Bar */
+        .quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .quick-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; text-align: center; transition: all 0.2s; }
+        .quick-stat:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+        .quick-stat-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .quick-stat-value { font-size: 1.75rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .quick-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .quick-stat.gold .quick-stat-value { color: var(--gold); }
+        .quick-stat.green .quick-stat-value { color: var(--green); }
+        .quick-stat.blue .quick-stat-value { color: var(--blue); }
+        .quick-stat.purple .quick-stat-value { color: var(--purple); }
+        .quick-stat.orange .quick-stat-value { color: var(--orange); }
+        .quick-stat.cyan .quick-stat-value { color: var(--cyan); }
+        
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 1200px) { .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+        
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .card-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        
+        .section { margin-bottom: 2rem; display: none; }
+        .section.active { display: block; }
+        
+        /* Launch Countdown */
+        .countdown { background: linear-gradient(135deg, #1a1520, var(--bg-card)); border: 1px solid var(--gold-dim); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .countdown-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .countdown-title { font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+        .countdown-date { color: var(--text-secondary); }
+        .countdown-timer { display: flex; gap: 1rem; justify-content: center; }
+        .countdown-unit { text-align: center; background: var(--bg-hover); padding: 1rem 1.5rem; border-radius: var(--radius-sm); min-width: 80px; }
+        .countdown-value { font-size: 2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .countdown-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        
+        /* Progress Bars */
+        .progress-bar { height: 8px; background: var(--bg-hover); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+        .progress-fill.gold { background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+        .progress-fill.green { background: linear-gradient(90deg, #166534, var(--green)); }
+        .progress-fill.blue { background: linear-gradient(90deg, #1d4ed8, var(--blue)); }
+        
+        /* Tags */
+        .tag { display: inline-block; font-size: 0.65rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 500; text-transform: uppercase; }
+        .tag-building { background: rgba(249,115,22,0.2); color: var(--orange); }
+        .tag-ready { background: rgba(34,197,94,0.2); color: var(--green); }
+        .tag-pending { background: rgba(168,85,247,0.2); color: var(--purple); }
+        .tag-hot { background: rgba(239,68,68,0.2); color: var(--red); }
+        .tag-active { background: rgba(34,197,94,0.2); color: var(--green); }
+        
+        /* Build Cards */
+        .build-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 0.75rem; }
+        .build-card:hover { border-color: var(--gold-dim); }
+        .build-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+        .build-name { font-weight: 600; }
+        .build-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .build-progress { display: flex; align-items: center; gap: 0.5rem; }
+        .build-progress-text { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        
+        /* Teams Grid */
+        .team-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; transition: all 0.2s; }
+        .team-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+        .team-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .team-name { font-size: 0.7rem; font-weight: 500; }
+        .team-status { font-size: 0.6rem; color: var(--text-muted); }
+        
+        /* Quick Links */
+        .quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
+        .quick-link { background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; text-align: center; text-decoration: none; color: var(--text-primary); transition: all 0.2s; font-size: 0.8rem; }
+        .quick-link:hover { border-color: var(--gold); background: var(--bg-card); }
+        .quick-link-icon { font-size: 1.25rem; display: block; margin-bottom: 0.25rem; }
+        
+        /* Opportunity Card */
+        .opp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; margin-bottom: 0.5rem; }
+        .opp-header { display: flex; justify-content: space-between; align-items: center; }
+        .opp-name { font-weight: 500; font-size: 0.875rem; }
+        .opp-score { font-family: 'JetBrains Mono', monospace; color: var(--gold); font-weight: 600; }
+        .opp-meta { font-size: 0.7rem; color: var(--text-muted); }
+        
+        /* Revenue Widget */
+        .revenue-widget { background: linear-gradient(135deg, #1a2520, var(--bg-card)); border: 1px solid var(--green); border-radius: var(--radius); padding: 1.25rem; }
+        .revenue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .revenue-title { font-weight: 600; color: var(--green); }
+        .revenue-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+        .revenue-item { text-align: center; padding: 0.5rem; background: var(--bg-hover); border-radius: var(--radius-sm); }
+        .revenue-value { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--green); }
+        .revenue-label { font-size: 0.65rem; color: var(--text-muted); }
+        
+        /* List styles */
+        .list { list-style: none; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); gap: 0.5rem; }
+        .list-item:last-child { border-bottom: none; }
+        .list-item-content { flex: 1; min-width: 0; }
+        .list-item-title { font-weight: 500; font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .list-item-sub { font-size: 0.7rem; color: var(--text-muted); }
+        
+        /* Buttons */
+        .btn { padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .btn-primary { background: var(--gold); color: var(--bg-primary); }
+        .btn-primary:hover { background: var(--gold-dim); }
+        .btn-secondary { background: var(--bg-hover); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+        
+        /* Sync indicator */
+        .sync-indicator { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-muted); }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        /* 711 Goal */
+        .goal-711 { background: linear-gradient(135deg, #201a15, var(--bg-card)); border: 1px solid var(--gold-dim); border-radius: var(--radius); padding: 1rem; text-align: center; }
+        .goal-711-value { font-size: 3rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .goal-711-label { font-size: 0.8rem; color: var(--text-secondary); }
+        .goal-711-target { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+        
+        /* Task List */
+        .task-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-hover); border-radius: var(--radius-sm); margin-bottom: 0.5rem; border-left: 3px solid var(--border); transition: all 0.2s; }
+        .task-item:hover { border-left-color: var(--gold); }
+        .task-item.overdue { border-left-color: var(--red); background: rgba(239,68,68,0.05); }
+        .task-item.today { border-left-color: var(--orange); background: rgba(249,115,22,0.05); }
+        .task-item.upcoming { border-left-color: var(--blue); }
+        .task-item.done { border-left-color: var(--green); opacity: 0.7; }
+        .task-checkbox { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .task-checkbox.checked { background: var(--green); border-color: var(--green); }
+        .task-checkbox.checked::after { content: '✓'; color: #000; font-size: 12px; font-weight: 700; }
+        .task-content { flex: 1; min-width: 0; }
+        .task-title { font-weight: 500; font-size: 0.875rem; margin-bottom: 2px; }
+        .task-meta { display: flex; gap: 0.75rem; font-size: 0.7rem; color: var(--text-muted); flex-wrap: wrap; }
+        .task-meta-item { display: flex; align-items: center; gap: 0.25rem; }
+        .task-due { font-family: 'JetBrains Mono', monospace; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 500; }
+        .task-due.overdue { background: rgba(239,68,68,0.2); color: var(--red); }
+        .task-due.today { background: rgba(249,115,22,0.2); color: var(--orange); }
+        .task-due.tomorrow { background: rgba(59,130,246,0.2); color: var(--blue); }
+        .task-due.week { background: rgba(168,85,247,0.2); color: var(--purple); }
+        .task-assignee { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.4rem; background: var(--bg-card); border-radius: 4px; font-size: 0.65rem; }
+        .task-progress { width: 60px; }
+        .task-progress-mini { height: 4px; background: var(--bg-primary); border-radius: 2px; overflow: hidden; }
+        .task-progress-mini-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+        .task-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        .task-section-title { font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .task-count { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">✦</div>
+            <div>
+                <div class="logo-text">Divine Mission Control</div>
+                <div class="logo-sub">Divine Success Flow • 711 Companies • 2 Crore Movement</div>
+            </div>
+        </div>
+        <div class="header-stats">
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-revenue">₹0</div>
+                <div class="header-stat-label">Today's Revenue</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-pipeline">$10.4K</div>
+                <div class="header-stat-label">Pipeline</div>
+            </div>
+            <div class="header-stat">
+                <div class="header-stat-value" id="h-builds">3</div>
+                <div class="header-stat-label">Active Builds</div>
+            </div>
+        </div>
+        <div class="sync-indicator">
+            <div class="sync-dot"></div>
+            <span>Live • <span id="lastSync">Just now</span></span>
+        </div>
+        <div class="header-time">
+            <div class="header-date" id="currentDate"></div>
+            <div class="header-clock" id="currentTime"></div>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="nav-item active" data-section="dashboard">🎯 Dashboard</div>
+        <div class="nav-item" data-section="builds">🔨 Active Builds</div>
+        <div class="nav-item" data-section="teams">👥 Divine Teams</div>
+        <div class="nav-item" data-section="existence-league">🏆 Existence League</div>
+        <div class="nav-item" data-section="opportunities">💡 Opportunities</div>
+        <div class="nav-item" data-section="leads">📊 Leads</div>
+        <div class="nav-item" data-section="projects">📁 Projects</div>
+        <div class="nav-item" data-section="revenue">💰 Revenue</div>
+        <div class="nav-item" data-section="companies">🏢 711 Goal</div>
+        <div class="nav-item" data-section="knowledge">📚 Knowledge</div>
+        <div class="nav-item" data-section="links">🔗 Quick Links</div>
+        <div class="nav-item" data-section="resources">📂 Resources</div>
+        <div class="nav-item" data-section="skool">🎓 Skool Dashboard</div>
+    </nav>
+    
+    <main class="container">
+        <!-- DASHBOARD -->
+        <section class="section active" id="dashboard">
+            <!-- AI Prosperity Countdown -->
+            <div class="countdown">
+                <div class="countdown-header">
+                    <div class="countdown-title">🚀 AI Prosperity 4.0 Launch</div>
+                    <div class="countdown-date">March 11, 2026</div>
+                </div>
+                <div class="countdown-timer">
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-days">32</div><div class="countdown-label">Days</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-hours">00</div><div class="countdown-label">Hours</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-mins">00</div><div class="countdown-label">Minutes</div></div>
+                    <div class="countdown-unit"><div class="countdown-value" id="cd-secs">00</div><div class="countdown-label">Seconds</div></div>
+                </div>
+            </div>
+            
+            <!-- Upcoming Tasks & Progress -->
+            <div class="grid grid-2" style="margin-bottom:1.5rem;">
+                <!-- Today's Tasks -->
+                <div class="card">
+                    <div class="task-section-header">
+                        <span class="task-section-title">📋 Today's Tasks</span>
+                        <span class="task-count" id="today-count">0/0</span>
+                    </div>
+                    <div id="today-tasks">
+                        <div class="task-item today">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Contact Zhamila (€1K lead)</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">🎯 Sales</span>
+                                    <span class="task-assignee">👤 Yashaswi</span>
+                                </div>
+                            </div>
+                            <span class="task-due today">Today 5PM</span>
+                        </div>
+                        <div class="task-item today">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Send 16 Viral Content DMs</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">📣 Marketing</span>
+                                    <span class="task-assignee">🤖 AI</span>
+                                </div>
+                            </div>
+                            <span class="task-due today">Today EOD</span>
+                        </div>
+                        <div class="task-item today">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Close Fadma (€47)</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">💼 Sales</span>
+                                    <span class="task-assignee">👤 Yashaswi</span>
+                                </div>
+                            </div>
+                            <span class="task-due today">ASAP</span>
+                        </div>
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Complete WriteAI Extension</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">💻 Dev</span>
+                                    <span class="task-assignee">🤖 Claude</span>
+                                </div>
+                            </div>
+                            <div class="task-progress">
+                                <div class="task-progress-mini"><div class="task-progress-mini-fill" style="width:35%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Tasks -->
+                <div class="card">
+                    <div class="task-section-header">
+                        <span class="task-section-title">📅 Upcoming</span>
+                        <span class="task-count">This Week</span>
+                    </div>
+                    <div id="upcoming-tasks">
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Send Daniel 1,000 Emails</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">📧 Email</span>
+                                    <span class="task-assignee">🤖 Instantly</span>
+                                </div>
+                            </div>
+                            <span class="task-due tomorrow">Feb 10</span>
+                        </div>
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">LinkedIn Scraper Extension</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">💻 Dev</span>
+                                    <span class="task-assignee">🤖 Claude</span>
+                                </div>
+                            </div>
+                            <span class="task-due tomorrow">Feb 9</span>
+                        </div>
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">YouTube SEO Extension</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">💻 Dev</span>
+                                    <span class="task-assignee">🤖 Claude</span>
+                                </div>
+                            </div>
+                            <span class="task-due tomorrow">Feb 9</span>
+                        </div>
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">AI Prosperity Landing Deploy</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">🚀 Launch</span>
+                                    <span class="task-assignee">👤 Yashaswi</span>
+                                </div>
+                            </div>
+                            <span class="task-due week">Feb 15</span>
+                        </div>
+                        <div class="task-item upcoming">
+                            <div class="task-checkbox" onclick="toggleTask(this)"></div>
+                            <div class="task-content">
+                                <div class="task-title">Daniel Webinar (Safety Culture)</div>
+                                <div class="task-meta">
+                                    <span class="task-meta-item">🎯 Client</span>
+                                    <span class="task-assignee">👤 Daniel</span>
+                                </div>
+                            </div>
+                            <span class="task-due week">Feb 17 6PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Progress -->
+            <div class="card" style="margin-bottom:1.5rem;">
+                <div class="card-header">
+                    <span class="card-title">📊 Project Progress</span>
+                    <span style="font-size:0.75rem;color:var(--text-muted);">Updated: <span id="progress-time">Just now</span></span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">🖊️ AI Writing Extension</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">35%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:35%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 🤖 Claude • Due: Feb 9</div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">🚀 AI Prosperity 4.0</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">15%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:15%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 👤 Yashaswi • Due: Mar 11</div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">✈️ Passenger Payback</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">40%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:40%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 👤 Mike • Due: Mar 20</div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">📧 Daniel Email Campaign</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">100%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 🤖 Claude • Due: Feb 10 ✅</div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">📚 Divine Wisdom Download</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">1%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:1%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 🤖 Script • Target: 50GB</div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">🎬 YT Transcripts Pipeline</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">108%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+                        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:0.25rem;">Assignee: 🤖 Apify • 3,241/3,000 ✅</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="quick-stat gold">
+                    <div class="quick-stat-icon">🏢</div>
+                    <div class="quick-stat-value">4</div>
+                    <div class="quick-stat-label">Companies</div>
+                </div>
+                <div class="quick-stat green">
+                    <div class="quick-stat-icon">👥</div>
+                    <div class="quick-stat-value">21</div>
+                    <div class="quick-stat-label">Divine Teams</div>
+                </div>
+                <div class="quick-stat blue">
+                    <div class="quick-stat-icon">🔨</div>
+                    <div class="quick-stat-value">9</div>
+                    <div class="quick-stat-label">Extensions Building</div>
+                </div>
+                <div class="quick-stat purple">
+                    <div class="quick-stat-icon">📊</div>
+                    <div class="quick-stat-value">38</div>
+                    <div class="quick-stat-label">Active Leads</div>
+                </div>
+                <div class="quick-stat orange">
+                    <div class="quick-stat-icon">📁</div>
+                    <div class="quick-stat-value">8</div>
+                    <div class="quick-stat-label">Projects</div>
+                </div>
+                <div class="quick-stat cyan">
+                    <div class="quick-stat-icon">🎬</div>
+                    <div class="quick-stat-value">3,241</div>
+                    <div class="quick-stat-label">Transcripts</div>
+                </div>
+            </div>
+            
+            <div class="grid grid-3">
+                <!-- Active Builds -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔨 Active Builds</span>
+                        <span class="tag tag-building">3 in progress</span>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">🖊️ AI Writing Assistant</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">Grammarly killer • $5/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:35%"></div></div>
+                            <span class="build-progress-text">35%</span>
+                        </div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">🔗 LinkedIn Scraper</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">Lusha killer • $9/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:25%"></div></div>
+                            <span class="build-progress-text">25%</span>
+                        </div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header">
+                            <span class="build-name">📺 YouTube SEO Tool</span>
+                            <span class="tag tag-building">Building</span>
+                        </div>
+                        <div class="build-meta">TubeBuddy killer • $4/mo</div>
+                        <div class="build-progress">
+                            <div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:20%"></div></div>
+                            <span class="build-progress-text">20%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HOT Leads -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔥 HOT Leads</span>
+                        <span class="tag tag-hot">Action Today</span>
+                    </div>
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Zhamila 🔥</div>
+                                <div class="list-item-sub">€1,000 budget • SME Coaching</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">DM</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Zahir Kurwale 🔥</div>
+                                <div class="list-item-sub">$500 budget • Inkspire Digital</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">DM</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">Fadma 🔥</div>
+                                <div class="list-item-sub">€47 close • Already replied</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Close</button>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item-content">
+                                <div class="list-item-title">16 Viral Content Leads</div>
+                                <div class="list-item-sub">DMs ready • Send today</div>
+                            </div>
+                            <button class="btn btn-sm btn-secondary">View</button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Revenue Today -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">💰 Revenue</span>
+                        <span style="font-family:'JetBrains Mono';color:var(--gold)">Target: ₹1L/day</span>
+                    </div>
+                    <div class="revenue-widget" style="border:none;padding:0;background:none;">
+                        <div class="revenue-grid">
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">Today</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">This Week</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">₹0</div>
+                                <div class="revenue-label">Feb MTD</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-value">$10.4K</div>
+                                <div class="revenue-label">Pipeline</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Progress to ₹1L/day</div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Divine Teams Preview -->
+            <div class="card" style="margin-bottom:1.5rem;">
+                <div class="card-header">
+                    <span class="card-title">👥 Divine Teams — 21 Active</span>
+                    <span style="font-size:0.75rem;color:var(--green);">74% Deployed</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:0.5rem;">
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">💼</div><div class="team-name" style="font-size:0.65rem;">Sales</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">📣</div><div class="team-name" style="font-size:0.65rem;">Marketing</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">✍️</div><div class="team-name" style="font-size:0.65rem;">Content</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">💻</div><div class="team-name" style="font-size:0.65rem;">Dev</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🎨</div><div class="team-name" style="font-size:0.65rem;">Design</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">📊</div><div class="team-name" style="font-size:0.65rem;">Analytics</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🎯</div><div class="team-name" style="font-size:0.65rem;">Growth</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🤖</div><div class="team-name" style="font-size:0.65rem;">AI</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🎬</div><div class="team-name" style="font-size:0.65rem;">Video</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🎵</div><div class="team-name" style="font-size:0.65rem;">Music</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">📚</div><div class="team-name" style="font-size:0.65rem;">Research</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🌐</div><div class="team-name" style="font-size:0.65rem;">SEO</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">📧</div><div class="team-name" style="font-size:0.65rem;">Email</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🔗</div><div class="team-name" style="font-size:0.65rem;">LinkedIn</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🚀</div><div class="team-name" style="font-size:0.65rem;">Launch</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">💰</div><div class="team-name" style="font-size:0.65rem;">Finance</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🤝</div><div class="team-name" style="font-size:0.65rem;">Affiliate</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">🔍</div><div class="team-name" style="font-size:0.65rem;">Opportunity</div></div>
+                    <div class="team-card" style="padding:0.5rem;border-color:var(--orange);"><div class="team-icon" style="font-size:1.25rem;">💎</div><div class="team-name" style="font-size:0.65rem;color:var(--orange);">Chrome</div></div>
+                    <div class="team-card" style="padding:0.5rem;"><div class="team-icon" style="font-size:1.25rem;">📖</div><div class="team-name" style="font-size:0.65rem;">Sanskrit</div></div>
+                    <div class="team-card" style="padding:0.5rem;opacity:0.5;"><div class="team-icon" style="font-size:1.25rem;">🙏</div><div class="team-name" style="font-size:0.65rem;">Nandini</div></div>
+                </div>
+            </div>
+            
+            <div class="grid grid-2" style="margin-top:1.5rem;">
+                <!-- 711 Goal Widget -->
+                <div class="goal-711">
+                    <div class="goal-711-value">4<span style="font-size:1.5rem;color:var(--text-muted)">/711</span></div>
+                    <div class="goal-711-label">Companies Built</div>
+                    <div class="goal-711-target">Target: 711 companies generating ₹1Cr/month by Dec 2026</div>
+                    <div class="progress-bar" style="margin-top:1rem;"><div class="progress-fill gold" style="width:0.5%"></div></div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔗 Quick Links</span>
+                    </div>
+                    <div class="quick-links">
+                        <a href="https://app.clickup.com/90161379676" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📋</span>ClickUp
+                        </a>
+                        <a href="https://github.com/divinesuccessflow" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🐙</span>GitHub
+                        </a>
+                        <a href="https://supabase.com/dashboard" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🗄️</span>Supabase
+                        </a>
+                        <a href="https://divinesuccessflow.github.io/speaker-blueprint-system/" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">🎤</span>Speaker BP
+                        </a>
+                        <a href="file:///Users/yashaswisugatoor/clawd/Projects/Divine_Leads_CRM/index.html" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📊</span>CRM
+                        </a>
+                        <a href="https://forms.gle/zgQ7T6cJuQtojezg9" target="_blank" class="quick-link">
+                            <span class="quick-link-icon">📝</span>AI Genie Form
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ACTIVE BUILDS -->
+        <section class="section" id="builds">
+            <h2 style="margin-bottom:1rem;">🔨 Active Builds — Chrome Extensions</h2>
+            <div class="quick-stats" style="margin-bottom:1.5rem;">
+                <div class="quick-stat orange"><div class="quick-stat-value">3</div><div class="quick-stat-label">Building Now</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value">6</div><div class="quick-stat-label">In Queue</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">0</div><div class="quick-stat-label">Submitted</div></div>
+                <div class="quick-stat gold"><div class="quick-stat-value">0</div><div class="quick-stat-label">Live</div></div>
+            </div>
+            <div class="grid grid-3">
+                <!-- Batch 1 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 1 (Feb 7-9)</span><span class="tag tag-building">Building</span></div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🖊️ AI Writing Assistant</span></div>
+                        <div class="build-meta">Grammarly ($12) → $5/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:35%"></div></div><span class="build-progress-text">35%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🔗 LinkedIn Scraper Pro</span></div>
+                        <div class="build-meta">Lusha ($39) → $9/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:25%"></div></div><span class="build-progress-text">25%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">📺 YouTube SEO Master</span></div>
+                        <div class="build-meta">TubeBuddy ($9) → $4/mo</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:20%"></div></div><span class="build-progress-text">20%</span></div>
+                    </div>
+                </div>
+                <!-- Batch 2 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 2 (Feb 10-11)</span><span class="tag tag-pending">Queued</span></div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">📧 AI Email Finder</div>
+                        <div class="build-meta">Hunter ($49) → $15/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">🎥 Screen Recorder AI</div>
+                        <div class="build-meta">Loom ($8) → $3/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">🎤 Meeting Notes AI</div>
+                        <div class="build-meta">Fireflies ($10) → $5/mo</div>
+                    </div>
+                </div>
+                <!-- Batch 3 -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">Batch 3 (Feb 12-13)</span><span class="tag tag-pending">Queued</span></div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">📑 Tab Manager Pro</div>
+                        <div class="build-meta">Momentum ($3) → $2/mo</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">💰 Price Tracker AI</div>
+                        <div class="build-meta">Honey (free) → $2/mo premium</div>
+                    </div>
+                    <div class="build-card" style="opacity:0.7;">
+                        <div class="build-name">⚡ Automation Builder</div>
+                        <div class="build-meta">Bardeen ($10) → $7/mo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- DIVINE TEAMS -->
+        <section class="section" id="teams">
+            <h2 style="margin-bottom:1rem;">👥 Divine Teams — 27 Active</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.75rem;">
+                <div class="team-card"><div class="team-icon">💼</div><div class="team-name">Sales</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📣</div><div class="team-name">Marketing</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">✍️</div><div class="team-name">Content</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💻</div><div class="team-name">Dev</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎨</div><div class="team-name">Design</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📊</div><div class="team-name">Analytics</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎯</div><div class="team-name">Growth</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🤖</div><div class="team-name">AI</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎬</div><div class="team-name">Video</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🎵</div><div class="team-name">Music</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📚</div><div class="team-name">Research</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🌐</div><div class="team-name">SEO</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">📧</div><div class="team-name">Email</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🔗</div><div class="team-name">LinkedIn</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🚀</div><div class="team-name">Launch</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💰</div><div class="team-name">Finance</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🤝</div><div class="team-name">Affiliate</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🔍</div><div class="team-name">Opportunity</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">💎</div><div class="team-name">Chrome Ext</div><div class="team-status">Building</div></div>
+                <div class="team-card"><div class="team-icon">📖</div><div class="team-name">Sanskrit</div><div class="team-status">Active</div></div>
+                <div class="team-card"><div class="team-icon">🙏</div><div class="team-name">Nandini</div><div class="team-status">Paused</div></div>
+            </div>
+        </section>
+        
+        <!-- EXISTENCE LEAGUE - Team Competition -->
+        <section class="section" id="existence-league">
+            <h2 style="margin-bottom:1rem;">🏆 Existence League — Teams Compete for Excellence</h2>
+            <div class="countdown" style="margin-bottom:1.5rem;">
+                <div class="countdown-header">
+                    <span class="countdown-title">⚔️ Monthly Championship</span>
+                    <span class="countdown-date">Ends Feb 28, 2026</span>
+                </div>
+                <div style="text-align:center;font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem;">
+                    Teams compete for survival, recognition, and resource allocation. Bottom 3 face re-evaluation.
+                </div>
+            </div>
+            
+            <div class="grid grid-2">
+                <!-- Leaderboard -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 Team Leaderboard</span>
+                        <span style="font-size:0.75rem;color:var(--text-muted);">Last updated: Just now</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                        <!-- Top 3 -->
+                        <div class="task-item today" style="background:linear-gradient(135deg, rgba(201,168,76,0.15), transparent);border-left:3px solid var(--gold);">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1.5rem;">🥇</span>
+                                <div><div class="task-title">Divine Sales Team</div><div class="task-meta">Revenue: $12,400 • Tasks: 47/52</div></div>
+                            </div>
+                            <div style="text-align:right;"><div style="font-size:1.25rem;font-weight:700;color:var(--gold);">94</div><div style="font-size:0.7rem;color:var(--text-muted);">pts • 32d streak</div></div>
+                        </div>
+                        <div class="task-item today" style="background:linear-gradient(135deg, rgba(168,85,247,0.15), transparent);border-left:3px solid var(--purple);">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1.5rem;">🥈</span>
+                                <div><div class="task-title">Divine Dev Team</div><div class="task-meta">Deployments: 23 • NPS: 9.2</div></div>
+                            </div>
+                            <div style="text-align:right;"><div style="font-size:1.25rem;font-weight:700;color:var(--purple);">89</div><div style="font-size:0.7rem;color:var(--text-muted);">pts • 15d streak</div></div>
+                        </div>
+                        <div class="task-item today" style="background:linear-gradient(135deg, rgba(34,197,94,0.15), transparent);border-left:3px solid var(--green);">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1.5rem;">🥉</span>
+                                <div><div class="task-title">Divine Experience Team</div><div class="task-meta">Projects: 5 • Satisfaction: 9.5</div></div>
+                            </div>
+                            <div style="text-align:right;"><div style="font-size:1.25rem;font-weight:700;color:var(--green);">87</div><div style="font-size:0.7rem;color:var(--text-muted);">pts • 7d streak</div></div>
+                        </div>
+                        <!-- Rest of teams -->
+                        <div class="task-item" style="opacity:0.9;">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1rem;">4.</span>
+                                <div><div class="task-title">Divine Marketing</div><div class="task-meta">Campaigns: 12 • ROI: 340%</div></div>
+                            </div>
+                            <div style="font-weight:600;color:var(--blue);">82</div>
+                        </div>
+                        <div class="task-item" style="opacity:0.9;">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1rem;">5.</span>
+                                <div><div class="task-title">Divine Content</div><div class="task-meta">Posts: 89 • Views: 1.2M</div></div>
+                            </div>
+                            <div style="font-weight:600;color:var(--cyan);">78</div>
+                        </div>
+                        <div class="task-item" style="opacity:0.9;">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1rem;">6.</span>
+                                <div><div class="task-title">Divine Research</div><div class="task-meta">Reports: 15 • Insights: 234</div></div>
+                            </div>
+                            <div style="font-weight:600;color:var(--orange);">76</div>
+                        </div>
+                        <!-- Warning Zone -->
+                        <div class="task-item overdue" style="border-left:3px solid var(--red);">
+                            <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+                                <span style="font-size:1rem;">⚠️</span>
+                                <div><div class="task-title">Divine Finance</div><div class="task-meta">Reports: 3 • Overdue: 2</div></div>
+                            </div>
+                            <div style="font-weight:600;color:var(--red);">62</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Scoring Metrics -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📈 Scoring Metrics</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                        <div style="background:var(--bg-hover);padding:1rem;border-radius:8px;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">REVENUE</div>
+                            <div style="font-size:1.5rem;font-weight:700;color:var(--green);">40%</div>
+                            <div style="font-size:0.7rem;color:var(--text-secondary);">Direct revenue generated</div>
+                        </div>
+                        <div style="background:var(--bg-hover);padding:1rem;border-radius:8px;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">COMPLETION</div>
+                            <div style="font-size:1.5rem;font-weight:700;color:var(--blue);">25%</div>
+                            <div style="font-size:0.7rem;color:var(--text-secondary);">Tasks finished on time</div>
+                        </div>
+                        <div style="background:var(--bg-hover);padding:1rem;border-radius:8px;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">NPS/QUALITY</div>
+                            <div style="font-size:1.5rem;font-weight:700;color:var(--purple);">20%</div>
+                            <div style="font-size:0.7rem;color:var(--text-secondary);">Client satisfaction</div>
+                        </div>
+                        <div style="background:var(--bg-hover);padding:1rem;border-radius:8px;">
+                            <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">INNOVATION</div>
+                            <div style="font-size:1.5rem;font-weight:700;color:var(--gold);">15%</div>
+                            <div style="font-size:0.7rem;color:var(--text-secondary);">New methods, improvements</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);">
+                        <div style="font-size:0.85rem;font-weight:600;margin-bottom:1rem;">🎯 Consequences</div>
+                        <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.8rem;color:var(--text-secondary);">
+                            <div>🏆 <strong style="color:var(--gold);">Top 3:</strong> Bonus, priority resources, recognition</div>
+                            <div>⚠️ <strong style="color:var(--orange);">Bottom 3:</strong> Performance improvement plan</div>
+                            <div>💀 <strong style="color:var(--red);">Last Place:</strong> Team re-evaluation (merge/dissolve)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- OPPORTUNITIES -->
+        <section class="section" id="opportunities">
+            <h2 style="margin-bottom:1rem;">💡 Today's Top Opportunities</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🎯 Chrome Extensions</span></div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">AI Writing Assistant</span><span class="opp-score">92/100</span></div>
+                        <div class="opp-meta">Beat Grammarly ($12→$5) • $500K MRR potential</div>
+                    </div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">LinkedIn Scraper</span><span class="opp-score">88/100</span></div>
+                        <div class="opp-meta">Beat Lusha ($39→$9) • $200K MRR potential</div>
+                    </div>
+                    <div class="opp-card">
+                        <div class="opp-header"><span class="opp-name">YouTube SEO Tool</span><span class="opp-score">85/100</span></div>
+                        <div class="opp-meta">Beat TubeBuddy ($9→$4) • $200K MRR potential</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📊 Opportunity Stats</span></div>
+                    <div class="revenue-grid" style="margin-top:0.5rem;">
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--cyan)">100</div><div class="revenue-label">Daily Finds</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--gold)">10</div><div class="revenue-label">Top Scored</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--green)">3</div><div class="revenue-label">Building</div></div>
+                        <div class="revenue-item"><div class="revenue-value" style="color:var(--purple)">6</div><div class="revenue-label">Queued</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- LEADS SECTION - COMPLETE -->
+        <section class="section" id="leads">
+            <h2 style="margin-bottom:1rem;">📊 All Leads Dashboard</h2>
+            <div class="quick-stats" style="margin-bottom:1.5rem;">
+                <div class="quick-stat gold"><div class="quick-stat-value">38</div><div class="quick-stat-label">Total Leads</div></div>
+                <div class="quick-stat red" style="--red:#ef4444;"><div class="quick-stat-value" style="color:#ef4444;">16</div><div class="quick-stat-label">HOT 🔥</div></div>
+                <div class="quick-stat orange"><div class="quick-stat-value">14</div><div class="quick-stat-label">Warm</div></div>
+                <div class="quick-stat blue"><div class="quick-stat-value">8</div><div class="quick-stat-label">Cold</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">$10.4K</div><div class="quick-stat-label">Pipeline</div></div>
+            </div>
+            
+            <div class="grid grid-2">
+                <!-- HOT Leads -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🔥 HOT Leads (Action Today)</span><span class="tag tag-hot">16 leads</span></div>
+                    <div class="task-item overdue">
+                        <div class="task-content">
+                            <div class="task-title">Zhamila - €1,000 Budget</div>
+                            <div class="task-meta"><span>SME Coaching • Germany</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">Contact</button>
+                    </div>
+                    <div class="task-item overdue">
+                        <div class="task-content">
+                            <div class="task-title">Zahir Kurwale - $500 Budget</div>
+                            <div class="task-meta"><span>Inkspire Digital • India</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">Contact</button>
+                    </div>
+                    <div class="task-item overdue">
+                        <div class="task-content">
+                            <div class="task-title">Fadma - €47 Close</div>
+                            <div class="task-meta"><span>Already replied • Ready to close</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">Close</button>
+                    </div>
+                    <div class="task-item today">
+                        <div class="task-content">
+                            <div class="task-title">16 Viral Content Leads</div>
+                            <div class="task-meta"><span>DMs ready • WhatsApp outreach</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary">View All</button>
+                    </div>
+                    <div class="task-item today">
+                        <div class="task-content">
+                            <div class="task-title">Nor Hani - Insurance Malaysia</div>
+                            <div class="task-meta"><span>Lead gen request</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary">DM</button>
+                    </div>
+                    <div class="task-item today">
+                        <div class="task-content">
+                            <div class="task-title">Tendai - Plastics SA R20K</div>
+                            <div class="task-meta"><span>South Africa • High value</span></div>
+                        </div>
+                        <button class="btn btn-sm btn-secondary">DM</button>
+                    </div>
+                </div>
+                
+                <!-- Lead Sources -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📈 Lead Sources</span></div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">30-Day Viral Content</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">24 leads (16 HOT)</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:63%"></div></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">AI Leads Engine (Google Sheet)</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--cyan);">14 leads</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill blue" style="width:37%"></div></div>
+                    </div>
+                    <div style="margin-top:1.5rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 LEAD SHEETS</div>
+                        <a href="https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/" target="_blank" class="btn btn-sm btn-secondary" style="margin:0.125rem;">AI Leads Sheet</a>
+                        <a href="https://docs.google.com/spreadsheets/d/1byjsPYEEDUFhdZ0mECZrEIfJf19Cov7zC6RANy8SG1M/" target="_blank" class="btn btn-sm btn-secondary" style="margin:0.125rem;">Viral Content Sheet</a>
+                    </div>
+                    <div style="margin-top:1.5rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📊 PIPELINE BREAKDOWN</div>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;text-align:center;">
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1rem;font-weight:700;color:var(--green);">€1,547</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Hot Pipeline</div>
+                            </div>
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1rem;font-weight:700;color:var(--orange);">$2,500</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Warm</div>
+                            </div>
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1rem;font-weight:700;color:var(--blue);">$6,300</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Cold</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PROJECTS SECTION - COMPLETE -->
+        <section class="section" id="projects">
+            <h2 style="margin-bottom:1rem;">📁 All Projects</h2>
+            <div class="quick-stats" style="margin-bottom:1.5rem;">
+                <div class="quick-stat gold"><div class="quick-stat-value">7</div><div class="quick-stat-label">Active Projects</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">4</div><div class="quick-stat-label">With Websites</div></div>
+                <div class="quick-stat cyan"><div class="quick-stat-value">1,210</div><div class="quick-stat-label">Total Files</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value">20.7MB</div><div class="quick-stat-label">Total Size</div></div>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🚀 AI Prosperity 4.0</span><span class="tag tag-hot">HIGH</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Launch: March 11, 2026 (30 days)</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">15%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill gold" style="width:15%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 11 files • 0.09 MB</div>
+                    <div style="margin-top:0.75rem;"><a href="https://divinesuccessflow.github.io/ai-prosperity/" target="_blank" class="btn btn-sm btn-secondary">View Site →</a></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🤖 DivineTeams.AI</span><span class="tag tag-hot">HIGH</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">AI Team Rental Business</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">80%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill gold" style="width:80%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 30 files • 0.13 MB • 🌐 Has Website</div>
+                    <div style="margin-top:0.75rem;"><a href="https://divineteams.ai" target="_blank" class="btn btn-sm btn-secondary">View Site →</a></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🧠 Divine Psyche Portal</span><span class="tag tag-active">MEDIUM</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Psychology Framework Platform</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">100%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill green" style="width:100%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 3 files • 0.05 MB • 🌐 Has Website</div>
+                    <div style="margin-top:0.75rem;"><a href="https://divinesuccessflow.github.io/divine-psyche/" target="_blank" class="btn btn-sm btn-secondary">View Site →</a></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📚 Divine Wisdom Download</span><span class="tag tag-building">Downloading</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Sacred texts collection (Target: 50GB)</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">41%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill gold" style="width:41%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 1,158 files • 20.34 MB</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🏗️ FOUNDRY Network</span><span class="tag tag-pending">LOW</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Entrepreneur community platform</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">100%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill green" style="width:100%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 2 files • 0.04 MB • 🌐 Has Website</div>
+                    <div style="margin-top:0.75rem;"><a href="https://divinesuccessflow.github.io/foundry/" target="_blank" class="btn btn-sm btn-secondary">View Site →</a></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🐝 HIVE Multi-Agent</span><span class="tag tag-pending">LOW</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Multi-agent collaboration platform</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">100%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill green" style="width:100%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 2 files • 0.04 MB • 🌐 Has Website</div>
+                    <div style="margin-top:0.75rem;"><a href="https://divinesuccessflow.github.io/hive/" target="_blank" class="btn btn-sm btn-secondary">View Site →</a></div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🏪 AI Dollar Store</span><span class="tag tag-active">MEDIUM</span></div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.75rem;">Yiwu sourcing business</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                        <span style="font-size:0.75rem;">Progress</span>
+                        <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">30%</span>
+                    </div>
+                    <div class="progress-bar" style="margin-bottom:0.75rem;"><div class="progress-fill gold" style="width:30%"></div></div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);">📄 4 files • 0.03 MB</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- REVENUE SECTION - COMPLETE -->
+        <section class="section" id="revenue">
+            <h2 style="margin-bottom:1rem;">💰 Revenue Dashboard</h2>
+            <div class="revenue-widget" style="margin-bottom:1.5rem;">
+                <div class="revenue-header">
+                    <span class="revenue-title">📊 February 2026</span>
+                    <span style="color:var(--text-muted);">Target: ₹5,00,000/day</span>
+                </div>
+                <div class="revenue-grid">
+                    <div class="revenue-item">
+                        <div class="revenue-value">₹0</div>
+                        <div class="revenue-label">Today</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-value">₹16,692</div>
+                        <div class="revenue-label">Feb MTD</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-value">334%</div>
+                        <div class="revenue-label">vs ₹5K Target</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-value">$10.4K</div>
+                        <div class="revenue-label">Pipeline</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header"><span class="card-title">✅ Recent Wins</span></div>
+                    <div class="task-item done" style="border-left-color:var(--green);">
+                        <div class="task-content">
+                            <div class="task-title">N8N Tool Flip</div>
+                            <div class="task-meta"><span>Feb 8 • Bought ₹4K → Sold €140</span></div>
+                        </div>
+                        <span style="font-family:'JetBrains Mono';color:var(--green);font-weight:700;">+₹8,600</span>
+                    </div>
+                    <div class="task-item done" style="border-left-color:var(--green);">
+                        <div class="task-content">
+                            <div class="task-title">Perplexity Sale to Daniel</div>
+                            <div class="task-meta"><span>Feb 7 • PayPal transfer</span></div>
+                        </div>
+                        <span style="font-family:'JetBrains Mono';color:var(--green);font-weight:700;">+₹4,092</span>
+                    </div>
+                    <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+                        <div style="display:flex;justify-content:space-between;">
+                            <span style="font-weight:600;">Total Feb Revenue:</span>
+                            <span style="font-family:'JetBrains Mono';color:var(--gold);font-weight:700;font-size:1.25rem;">₹16,692</span>
+                        </div>
+                        <div style="font-size:0.75rem;color:var(--green);margin-top:0.25rem;">✅ 334% of ₹5,000 target achieved!</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📈 Revenue Targets</span></div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Feb 2026</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">₹16.7K / ₹5K ✅</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Mar 2026 Target</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">₹0 / ₹15K</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Jun 2026 Target</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">₹0 / ₹50K</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Dec 2026 (711 Goal)</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--gold);">₹0 / ₹1Cr/mo</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="companies"><h2>🏢 711 Companies Goal</h2>
+            <div class="goal-711" style="max-width:400px;">
+                <div class="goal-711-value">4<span style="font-size:1.5rem;color:var(--text-muted)">/711</span></div>
+                <div class="goal-711-label">Companies Built</div>
+                <div style="margin-top:1rem;text-align:left;font-size:0.875rem;">
+                    <div>1. Divine Success Flow (Holding)</div>
+                    <div>2. AI Leads Engine (Agency)</div>
+                    <div>3. Speaker Blueprint System (Product)</div>
+                    <div>4. Passenger Payback (Pre-launch)</div>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="knowledge"><h2>📚 Knowledge Base</h2>
+            <div class="quick-stats">
+                <div class="quick-stat cyan"><div class="quick-stat-value">3,241</div><div class="quick-stat-label">YT Transcripts</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value">527</div><div class="quick-stat-label">Sanskrit Files</div></div>
+                <div class="quick-stat gold"><div class="quick-stat-value">21</div><div class="quick-stat-label">Team Docs</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value">56</div><div class="quick-stat-label">711 OS Files</div></div>
+            </div>
+        </section>
+        <section class="section" id="links">
+            <h2 style="margin-bottom:1rem;">🔗 All Quick Links</h2>
+            <div class="quick-links" style="max-width:800px;">
+                <a href="https://app.clickup.com/90161379676" target="_blank" class="quick-link"><span class="quick-link-icon">📋</span>ClickUp</a>
+                <a href="https://github.com/divinesuccessflow" target="_blank" class="quick-link"><span class="quick-link-icon">🐙</span>GitHub</a>
+                <a href="https://supabase.com/dashboard" target="_blank" class="quick-link"><span class="quick-link-icon">🗄️</span>Supabase</a>
+                <a href="https://chrome.google.com/webstore/devconsole" target="_blank" class="quick-link"><span class="quick-link-icon">💎</span>Chrome Dev</a>
+                <a href="https://console.apify.com" target="_blank" class="quick-link"><span class="quick-link-icon">🕷️</span>Apify</a>
+                <a href="https://platform.openai.com" target="_blank" class="quick-link"><span class="quick-link-icon">🤖</span>OpenAI</a>
+                <a href="https://divinesuccessflow.github.io/speaker-blueprint-system/" target="_blank" class="quick-link"><span class="quick-link-icon">🎤</span>Speaker BP</a>
+                <a href="https://divinesuccessflow.github.io/divine-real-estate/" target="_blank" class="quick-link"><span class="quick-link-icon">🏠</span>France RE</a>
+                <a href="https://forms.gle/zgQ7T6cJuQtojezg9" target="_blank" class="quick-link"><span class="quick-link-icon">📝</span>AI Genie</a>
+                <a href="file:///Users/yashaswisugatoor/clawd/Projects/Divine_Leads_CRM/index.html" class="quick-link"><span class="quick-link-icon">📊</span>CRM</a>
+                <a href="file:///Users/yashaswisugatoor/clawd/Projects/Skool_Dashboard_Pro/index.html" class="quick-link"><span class="quick-link-icon">🎓</span>Skool Dash</a>
+                <a href="https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/" target="_blank" class="quick-link"><span class="quick-link-icon">📋</span>AI Leads Sheet</a>
+                <a href="https://www.skool.com/discovery" target="_blank" class="quick-link"><span class="quick-link-icon">🎓</span>Skool</a>
+            </div>
+        </section>
+        
+        <!-- RESOURCES HUB -->
+        <section class="section" id="resources">
+            <h2 style="margin-bottom:1rem;">📂 All Resources by Project</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem;">Every file, folder, link, and research output organized by project</p>
+            
+            <div class="grid grid-2">
+                <!-- Chrome Extensions -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">💎 Chrome Extensions</span>
+                        <span class="tag tag-building">Building</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);word-break:break-all;">~/clawd/Projects/Chrome_Extensions/</div>
+                        <a href="https://app.clickup.com/90161379676/v/f/90168423401" target="_blank" style="font-size:0.8rem;color:var(--gold);">→ ClickUp Folder</a>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>Top 50 Extensions Analysis</span><span class="tag" style="background:rgba(6,182,212,0.2);color:var(--cyan);">research</span></li>
+                            <li class="list-item"><span>Chrome Extension Business Guide</span><span class="tag" style="background:rgba(34,197,94,0.2);color:var(--green);">guide</span></li>
+                            <li class="list-item"><span>Parallel Build Management</span><span class="tag" style="background:rgba(249,115,22,0.2);color:var(--orange);">plan</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">👥 TEAMS</div>
+                        <div style="font-size:0.8rem;">Divine Opportunity Finder Team</div>
+                        <div style="font-size:0.8rem;">Divine Chrome Extension Team</div>
+                    </div>
+                    <div style="margin-top:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 LINKS</div>
+                        <a href="https://chrome.google.com/webstore/devconsole" target="_blank" class="btn btn-sm btn-secondary" style="margin-right:0.25rem;">Chrome Dev</a>
+                        <a href="https://extensionpay.com" target="_blank" class="btn btn-sm btn-secondary">ExtensionPay</a>
+                    </div>
+                </div>
+                
+                <!-- AI Prosperity 4.0 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🚀 AI Prosperity 4.0</span>
+                        <span class="tag tag-active">Launch Mar 11</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);word-break:break-all;">~/clawd/Projects/AI_Prosperity/</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--purple);word-break:break-all;">iCloud/.../AI Projects/</div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>Launch Tracker</span><span class="tag" style="background:rgba(249,115,22,0.2);color:var(--orange);">tracker</span></li>
+                            <li class="list-item"><span>Feb 7 Content</span><span class="tag" style="background:rgba(168,85,247,0.2);color:var(--purple);">content</span></li>
+                            <li class="list-item"><span>Landing Page HTML</span><span class="tag" style="background:rgba(34,197,94,0.2);color:var(--green);">asset</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 LINKS</div>
+                        <a href="https://forms.gle/zgQ7T6cJuQtojezg9" target="_blank" class="btn btn-sm btn-secondary">AI Genie Form</a>
+                    </div>
+                </div>
+                
+                <!-- Passenger Payback -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">✈️ Passenger Payback</span>
+                        <span class="tag tag-active">Active</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);word-break:break-all;">~/clawd/Projects/Passenger_Payback/</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--purple);word-break:break-all;">iCloud/.../PASSENGER PAYBACK AI PROJECT/</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>36-Page Business Document</span><span class="tag" style="background:rgba(201,168,76,0.2);color:var(--gold);">doc</span></li>
+                            <li class="list-item"><span>US Aviation Laws (29 pages)</span><span class="tag" style="background:rgba(6,182,212,0.2);color:var(--cyan);">research</span></li>
+                            <li class="list-item"><span>Apple App Store Guide</span><span class="tag" style="background:rgba(34,197,94,0.2);color:var(--green);">guide</span></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Divine Wisdom -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📚 Divine Wisdom</span>
+                        <span class="tag tag-building">Downloading</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);word-break:break-all;">~/clawd/Projects/Divine_Wisdom/</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--purple);word-break:break-all;">iCloud/Temp/Divine_Wisdom_Data/ (207MB, 527 files)</div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>Vedic Heritage Sitemap</span><span class="tag" style="background:rgba(6,182,212,0.2);color:var(--cyan);">research</span></li>
+                            <li class="list-item"><span>Manual Actions Required</span><span class="tag" style="background:rgba(239,68,68,0.2);color:var(--red);">todo</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 SOURCES</div>
+                        <a href="https://vedicheritage.gov.in" target="_blank" class="btn btn-sm btn-secondary" style="margin:0.125rem;">Vedic Heritage</a>
+                        <a href="https://sanskritdocuments.org" target="_blank" class="btn btn-sm btn-secondary" style="margin:0.125rem;">Sanskrit Docs</a>
+                    </div>
+                </div>
+                
+                <!-- AI Leads Engine -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🎯 AI Leads Engine</span>
+                        <span class="tag tag-hot">14 Leads</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);">~/clawd/Clients/AI_Leads_Engine/</div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>All Leads Analysis (14 leads)</span><span class="tag" style="background:rgba(201,168,76,0.2);color:var(--gold);">data</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/" target="_blank" class="btn btn-sm btn-primary">Google Sheet →</a>
+                    </div>
+                </div>
+                
+                <!-- 30-Day Viral Content -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📱 30-Day Viral Content</span>
+                        <span class="tag tag-hot">24 Leads (16 HOT)</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);">~/clawd/Clients/30_Day_Viral_Content/</div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 FILES</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>All Leads (24)</span><span class="tag" style="background:rgba(201,168,76,0.2);color:var(--gold);">data</span></li>
+                            <li class="list-item"><span>Personalized DMs (16 ready)</span><span class="tag" style="background:rgba(239,68,68,0.2);color:var(--red);">outreach</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <a href="https://docs.google.com/spreadsheets/d/1byjsPYEEDUFhdZ0mECZrEIfJf19Cov7zC6RANy8SG1M/" target="_blank" class="btn btn-sm btn-primary">Google Sheet →</a>
+                    </div>
+                </div>
+                
+                <!-- YouTube AI Teams -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🎬 AI Teams from YouTube</span>
+                        <span class="tag tag-active">3,241 Transcripts</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📁 FOLDERS</div>
+                        <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--cyan);">~/clawd/Knowledge_Base/YouTube_Transcripts/</div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📊 STATS</div>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;text-align:center;">
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1.25rem;font-weight:700;color:var(--cyan);">3,241</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Transcripts</div>
+                            </div>
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1.25rem;font-weight:700;color:var(--gold);">40</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Creators</div>
+                            </div>
+                            <div style="background:var(--bg-hover);padding:0.5rem;border-radius:var(--radius-sm);">
+                                <div style="font-size:1.25rem;font-weight:700;color:var(--purple);">10</div>
+                                <div style="font-size:0.65rem;color:var(--text-muted);">Teams</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Knowledge Base -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📖 Knowledge Base</span>
+                        <span class="tag tag-active">Research</span>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📄 RECENT RESEARCH</div>
+                        <ul class="list" style="font-size:0.8rem;">
+                            <li class="list-item"><span>Thank You Page + WhatsApp Analysis</span></li>
+                            <li class="list-item"><span>Top 100 LinkedIn Creators</span></li>
+                            <li class="list-item"><span>Energy Mastery Protocol</span></li>
+                            <li class="list-item"><span>Discovery Principle</span></li>
+                            <li class="list-item"><span>Scripture Sources Complete</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">📚 CATEGORIES</div>
+                        <span class="tag" style="background:rgba(168,85,247,0.2);color:var(--purple);margin:0.125rem;">Sanskrit</span>
+                        <span class="tag" style="background:rgba(201,168,76,0.2);color:var(--gold);margin:0.125rem;">Blueprints</span>
+                        <span class="tag" style="background:rgba(6,182,212,0.2);color:var(--cyan);margin:0.125rem;">APIs</span>
+                        <span class="tag" style="background:rgba(34,197,94,0.2);color:var(--green);margin:0.125rem;">Mindvalley</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Full Resource JSON Link -->
+            <div style="margin-top:1.5rem;text-align:center;">
+                <a href="data/resources.json" target="_blank" class="btn btn-secondary">📋 View Full resources.json</a>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;">This file is updated by the AI assistant after each significant output</p>
+            </div>
+        </section>
+        
+        <!-- SKOOL DASHBOARD SECTION -->
+        <section class="section" id="skool">
+            <h2 style="margin-bottom:1rem;">🎓 Skool Communities Dashboard</h2>
+            <div class="quick-stats" style="margin-bottom:1.5rem;">
+                <div class="quick-stat cyan"><div class="quick-stat-value" id="skool-members">60,409</div><div class="quick-stat-label">Total Members</div></div>
+                <div class="quick-stat purple"><div class="quick-stat-value" id="skool-communities">4</div><div class="quick-stat-label">Communities</div></div>
+                <div class="quick-stat green"><div class="quick-stat-value" id="skool-enriched">44,343</div><div class="quick-stat-label">Enriched</div></div>
+                <div class="quick-stat gold"><div class="quick-stat-value" id="skool-emails">38,221</div><div class="quick-stat-label">With Email</div></div>
+            </div>
+            
+            <div class="grid grid-2">
+                <!-- Top Communities -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📊 Communities Overview</span></div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🚀 AI Automation Agency Hub</span><span class="tag tag-hot">45,691 members</span></div>
+                        <div class="build-meta">Liam Ottley • Premium community</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill cyan" style="width:76%"></div></div><span class="build-progress-text">76%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">🔥 Founder OS</span><span class="tag tag-active">8,234 members</span></div>
+                        <div class="build-meta">Matt Gray • Business systems</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill purple" style="width:14%"></div></div><span class="build-progress-text">14%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">⚡ Skool Games</span><span class="tag tag-active">4,123 members</span></div>
+                        <div class="build-meta">Sam Ovens • Community building</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill gold" style="width:7%"></div></div><span class="build-progress-text">7%</span></div>
+                    </div>
+                    <div class="build-card">
+                        <div class="build-header"><span class="build-name">💡 Creator Economy</span><span class="tag tag-pending">2,361 members</span></div>
+                        <div class="build-meta">Various • Mixed niches</div>
+                        <div class="build-progress"><div class="progress-bar" style="flex:1;"><div class="progress-fill green" style="width:4%"></div></div><span class="build-progress-text">4%</span></div>
+                    </div>
+                </div>
+                
+                <!-- Member Stats -->
+                <div class="card">
+                    <div class="card-header"><span class="card-title">📈 Data Quality</span></div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Enrichment Rate</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--cyan);">73%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:73%;background:linear-gradient(90deg,var(--cyan),var(--purple));"></div></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">Email Found Rate</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--green);">63%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:63%"></div></div>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+                            <span style="font-size:0.8rem;">LinkedIn Found</span>
+                            <span style="font-family:'JetBrains Mono';font-size:0.75rem;color:var(--blue);">45%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill blue" style="width:45%"></div></div>
+                    </div>
+                    <div style="margin-top:1.5rem;">
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.5rem;">🔗 QUICK ACTIONS</div>
+                        <a href="file:///Users/yashaswisugatoor/clawd/Projects/Skool_Dashboard_Pro/index.html" target="_blank" class="btn btn-sm btn-primary" style="margin:0.125rem;">Open Full Dashboard</a>
+                        <a href="https://supabase.com/dashboard" target="_blank" class="btn btn-sm btn-secondary" style="margin:0.125rem;">Supabase</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Members / Activity -->
+            <div class="card" style="margin-top:1.5rem;">
+                <div class="card-header">
+                    <span class="card-title">👥 Top Niches by Member Count</span>
+                    <span style="font-size:0.75rem;color:var(--text-muted);">From Supabase skool schema</span>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;">
+                    <div style="background:var(--bg-hover);padding:0.75rem;border-radius:var(--radius-sm);text-align:center;">
+                        <div style="font-size:1.25rem;font-weight:700;color:var(--cyan);">45,691</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">AI/Automation</div>
+                    </div>
+                    <div style="background:var(--bg-hover);padding:0.75rem;border-radius:var(--radius-sm);text-align:center;">
+                        <div style="font-size:1.25rem;font-weight:700;color:var(--purple);">8,234</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Business/Startup</div>
+                    </div>
+                    <div style="background:var(--bg-hover);padding:0.75rem;border-radius:var(--radius-sm);text-align:center;">
+                        <div style="font-size:1.25rem;font-weight:700;color:var(--gold);">4,123</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Marketing</div>
+                    </div>
+                    <div style="background:var(--bg-hover);padding:0.75rem;border-radius:var(--radius-sm);text-align:center;">
+                        <div style="font-size:1.25rem;font-weight:700;color:var(--green);">2,361</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);">Creator Economy</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Supabase Connection Info -->
+            <div class="card" style="margin-top:1.5rem;background:linear-gradient(135deg,#1a2025,var(--bg-card));border-color:var(--cyan);">
+                <div class="card-header">
+                    <span class="card-title" style="color:var(--cyan);">🗄️ Supabase Connection</span>
+                    <span class="tag" style="background:rgba(34,197,94,0.2);color:var(--green);">Connected</span>
+                </div>
+                <div style="font-size:0.8rem;font-family:'JetBrains Mono';color:var(--text-secondary);">
+                    <div style="margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Schema:</span> skool</div>
+                    <div style="margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Tables:</span> communities, members, enriched_contacts</div>
+                    <div><span style="color:var(--text-muted);">Note:</span> Use <code style="background:var(--bg-hover);padding:0.1rem 0.3rem;border-radius:4px;">Accept-Profile: skool</code> header for API calls</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+    // Time
+    function updateTime(){
+        const n=new Date();
+        document.getElementById('currentDate').textContent=n.toLocaleDateString('en-IN',{weekday:'long',month:'short',day:'numeric',year:'numeric'});
+        document.getElementById('currentTime').textContent=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    }
+    setInterval(updateTime,1000);updateTime();
+    
+    // Countdown to March 11, 2026
+    function updateCountdown(){
+        const launch = new Date('2026-03-11T00:00:00+05:30');
+        const now = new Date();
+        const diff = launch - now;
+        if(diff > 0){
+            const days = Math.floor(diff / (1000*60*60*24));
+            const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+            const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+            const secs = Math.floor((diff % (1000*60)) / 1000);
+            document.getElementById('cd-days').textContent = days;
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+            document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+            document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+        }
+    }
+    setInterval(updateCountdown,1000);updateCountdown();
+    
+    // Nav
+    document.querySelectorAll('.nav-item').forEach(i=>i.addEventListener('click',()=>{
+        document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+        i.classList.add('active');
+        document.getElementById(i.dataset.section).classList.add('active');
+    }));
+    
+    // Task Toggle
+    function toggleTask(el) {
+        el.classList.toggle('checked');
+        const item = el.closest('.task-item');
+        if(el.classList.contains('checked')) {
+            item.classList.add('done');
+            item.classList.remove('today', 'overdue', 'upcoming');
+        } else {
+            item.classList.remove('done');
+        }
+        updateTaskCounts();
+    }
+    
+    // Update Task Counts
+    function updateTaskCounts() {
+        const todayTasks = document.querySelectorAll('#today-tasks .task-item');
+        const todayDone = document.querySelectorAll('#today-tasks .task-checkbox.checked').length;
+        document.getElementById('today-count').textContent = todayDone + '/' + todayTasks.length;
+        
+        // Update progress time
+        document.getElementById('progress-time').textContent = new Date().toLocaleTimeString('en-IN', {hour: '2-digit', minute: '2-digit'});
+    }
+    updateTaskCounts();
+    
+    // Store task state in localStorage
+    function saveTaskState() {
+        const states = {};
+        document.querySelectorAll('.task-checkbox').forEach((cb, i) => {
+            states['task-' + i] = cb.classList.contains('checked');
+        });
+        localStorage.setItem('taskStates', JSON.stringify(states));
+    }
+    
+    // Load task state from localStorage
+    function loadTaskState() {
+        const saved = localStorage.getItem('taskStates');
+        if(saved) {
+            const states = JSON.parse(saved);
+            document.querySelectorAll('.task-checkbox').forEach((cb, i) => {
+                if(states['task-' + i]) {
+                    cb.classList.add('checked');
+                    cb.closest('.task-item').classList.add('done');
+                }
+            });
+            updateTaskCounts();
+        }
+    }
+    loadTaskState();
+    
+    // Save on toggle
+    document.querySelectorAll('.task-checkbox').forEach(cb => {
+        cb.addEventListener('click', saveTaskState);
+    });
+    </script>
+</body>
+</html>

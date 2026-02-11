@@ -1,0 +1,1017 @@
+{
+  "lastUpdated": "2026-02-08T11:00:00+05:30",
+  "tasks": [
+    {
+      "id": "T000",
+      "title": "DM 24 Viral Content leads (16 HOT)",
+      "project": "30 Day Viral Content",
+      "priority": "high",
+      "due": "2026-02-07",
+      "done": false
+    },
+    {
+      "id": "T001",
+      "title": "Divine Wisdom - Create Supabase project",
+      "project": "Divine Wisdom",
+      "priority": "high",
+      "due": "2026-02-07",
+      "done": false
+    },
+    {
+      "id": "T002",
+      "title": "Send Daniel Mel\u00e9ndez 1,000 emails",
+      "project": "Client Work",
+      "priority": "high",
+      "due": "2026-02-10",
+      "done": false
+    },
+    {
+      "id": "T003",
+      "title": "Contact HOT leads (Zhamila, Zahir, Nor Hani, Tendai)",
+      "project": "AI Leads Engine",
+      "priority": "high",
+      "due": "2026-02-07",
+      "done": false
+    },
+    {
+      "id": "T004",
+      "title": "Follow up WARM leads",
+      "project": "AI Leads Engine",
+      "priority": "medium",
+      "due": "2026-02-10",
+      "done": false
+    },
+    {
+      "id": "T005",
+      "title": "Close Fadma (Home Baker)",
+      "project": "30 Day Viral Content",
+      "priority": "high",
+      "due": "2026-02-08",
+      "done": false
+    },
+    {
+      "id": "T006",
+      "title": "Build Divine Marketing Team doc",
+      "project": "Divine Teams",
+      "priority": "medium",
+      "due": "2026-02-07",
+      "done": false
+    },
+    {
+      "id": "T007",
+      "title": "Extract frameworks from YouTube transcripts",
+      "project": "AI Teams",
+      "priority": "high",
+      "due": "2026-02-10",
+      "done": false
+    }
+  ],
+  "stages": [
+    {
+      "id": "new",
+      "name": "New",
+      "icon": "\ud83d\udce5"
+    },
+    {
+      "id": "contacted",
+      "name": "Contacted",
+      "icon": "\ud83d\udce7"
+    },
+    {
+      "id": "qualified",
+      "name": "Qualified",
+      "icon": "\u2705"
+    },
+    {
+      "id": "proposal",
+      "name": "Proposal",
+      "icon": "\ud83d\udcc4"
+    },
+    {
+      "id": "won",
+      "name": "Won",
+      "icon": "\ud83c\udfc6"
+    },
+    {
+      "id": "lost",
+      "name": "Lost",
+      "icon": "\u274c"
+    }
+  ],
+  "leads": [
+    {
+      "id": "L001",
+      "name": "Zhamila \ud83d\udd25",
+      "email": "zhamilanurpeiis@gmail.com",
+      "phone": "+77078776989",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "SME Coaching, \u20ac1000 budget, IMMEDIATE"
+    },
+    {
+      "id": "L002",
+      "name": "Zahir Kurwale \ud83d\udd25",
+      "email": "zahirkurwale@gmail.com",
+      "phone": "+919833511003",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-06",
+      "notes": "Inkspire Digital, $500 budget, IMMEDIATE"
+    },
+    {
+      "id": "L003",
+      "name": "Nor Hani \ud83d\udd25",
+      "email": "mshaninazaruddin@gmail.com",
+      "phone": "+601167442284",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-06",
+      "notes": "Insurance Malaysia, MYR200, IMMEDIATE"
+    },
+    {
+      "id": "L004",
+      "name": "Tendai \ud83d\udd25",
+      "email": "tlovemore1972@gmail.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-03",
+      "notes": "Plastic Materials SA, R20000, IMMEDIATE"
+    },
+    {
+      "id": "L005",
+      "name": "Christine Bamulinde",
+      "email": "christinebamulinde@gmail.com",
+      "phone": "+256777912642",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-03",
+      "notes": "Postpartum Center Uganda, $650-1000"
+    },
+    {
+      "id": "L006",
+      "name": "Elizabeth Markevitch",
+      "email": "markevitch@ikonotv.art",
+      "phone": "+491607846809",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-03",
+      "notes": "ikonoTV Germany, 18K LI + 62K IG"
+    },
+    {
+      "id": "L007",
+      "name": "Jenny",
+      "email": "jenny_iamjenny@hotmail.com",
+      "phone": "63976062",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-05",
+      "notes": "Translation Agency, $500 budget"
+    },
+    {
+      "id": "L008",
+      "name": "Antela",
+      "email": "dswidler@antelaservices.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-06",
+      "notes": "Sustainability Consulting USA"
+    },
+    {
+      "id": "L009",
+      "name": "Jennifer Owusu",
+      "email": "jennyo.ohemaa@gmail.com",
+      "phone": "+233249870216",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "Lipgloss Ghana, 300 cedis"
+    },
+    {
+      "id": "L010",
+      "name": "Lubna Salah",
+      "email": "lubnas@isdf-ss.org",
+      "phone": "7120992",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "NGO South Sudan, $200-500"
+    },
+    {
+      "id": "L011",
+      "name": "Jagruti Patel",
+      "email": "rajanisu@sbcglobal.net",
+      "phone": "7608286533",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "Dentistry USA, budget unclear"
+    },
+    {
+      "id": "L012",
+      "name": "Judy",
+      "email": "judyoder@gmail.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "Philanthropy Consulting, exploring"
+    },
+    {
+      "id": "L013",
+      "name": "Pascal Ndegwa",
+      "email": "elsamapascal@gmail.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-04",
+      "notes": "Digital Services Kenya, $10 budget"
+    },
+    {
+      "id": "L014",
+      "name": "Brigitta Vetter",
+      "email": "",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C001",
+      "stage": "new",
+      "date": "2026-02-05",
+      "notes": "Antiques Europe, family decision"
+    },
+    {
+      "id": "V001",
+      "name": "Bonnie L Bishop \ud83d\udd25",
+      "email": "pazzazzbon@gmail.com",
+      "phone": "1 707 900-8122",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Consistency, Score 5"
+    },
+    {
+      "id": "V002",
+      "name": "Chino",
+      "email": "Nonyelum_v@yahoo.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Time for branding, Score 4"
+    },
+    {
+      "id": "V003",
+      "name": "Sheilja Arora",
+      "email": "Jannat1812@gmail.com",
+      "phone": "",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Coach, Score 4"
+    },
+    {
+      "id": "V004",
+      "name": "Nandita \ud83d\udd25",
+      "email": "nanditaa33@gmail.com",
+      "phone": "+48577803639",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Creator, Time, Score 5"
+    },
+    {
+      "id": "V005",
+      "name": "Sandra Christian \ud83d\udd25",
+      "email": "bwellness104@gmail.com",
+      "phone": "+1 289 886 0004",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Coach, Not started, Score 5"
+    },
+    {
+      "id": "V006",
+      "name": "Chanthy Thong",
+      "email": "Chanthyhbw@gmail.com",
+      "phone": "+61 455027999",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Where to start, Score 4"
+    },
+    {
+      "id": "V007",
+      "name": "Ray Dalton \ud83d\udd25",
+      "email": "raydalton.iei@gmail.com",
+      "phone": "5491144056787",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Reformatting, Score 5"
+    },
+    {
+      "id": "V008",
+      "name": "Jennifer Gordon \ud83d\udd25",
+      "email": "Gordonjennifer7@gmail.com",
+      "phone": "7093239375",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Social media, Score 5"
+    },
+    {
+      "id": "V009",
+      "name": "Monica de Sa",
+      "email": "Monicadesa.Psicologia@gmail.com",
+      "phone": "+351933702555",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Consultant, Score 1 - COLD"
+    },
+    {
+      "id": "V010",
+      "name": "J Tchiloyans \ud83d\udd25",
+      "email": "Jtchiloyansmv@gmail.com",
+      "phone": "6138804212",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Other, Expression, Score 5"
+    },
+    {
+      "id": "V011",
+      "name": "Charlotte Phillips",
+      "email": "charlotte@whatisyourstoryhypnotherapy.co.uk",
+      "phone": "+447956144239",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Platform sync, Score 4"
+    },
+    {
+      "id": "V012",
+      "name": "Bj\u00f6rn \ud83d\udd25",
+      "email": "ultimatare@gmail.com",
+      "phone": "+46703764032",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Automated videos, Score 5"
+    },
+    {
+      "id": "V013",
+      "name": "Lucy Nolan \ud83d\udd25",
+      "email": "Lucy@weareimaginal.co.uk",
+      "phone": "+447727603437",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Resistance, Score 5"
+    },
+    {
+      "id": "V014",
+      "name": "Manjula Raguthu \ud83d\udd25",
+      "email": "Medical7530@gmail.com",
+      "phone": "9566398699",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Automation tools, Score 5"
+    },
+    {
+      "id": "V015",
+      "name": "Sara Leite \ud83d\udd25",
+      "email": "sarafortal1983@gmail.com",
+      "phone": "6478040458",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Creator, Video editing, Score 5"
+    },
+    {
+      "id": "V016",
+      "name": "Sara Lakani \ud83d\udd25",
+      "email": "talk2u_sara@hotmail.com",
+      "phone": "1281-253-8749",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Creator, Newbie, Score 5"
+    },
+    {
+      "id": "V017",
+      "name": "Ineke M",
+      "email": "ineke.mols@gmail.com",
+      "phone": "31645913965",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Coach, Approach, Score 4"
+    },
+    {
+      "id": "V018",
+      "name": "Fadma Bouhbass \ud83d\udd25",
+      "email": "fadma.bouhbass@gmail.com",
+      "phone": "+32486849194",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "contacted",
+      "date": "2026-02-01",
+      "notes": "Founder, Content+tools, Score 5, REPLIED"
+    },
+    {
+      "id": "V019",
+      "name": "Marquita Leonard \ud83d\udd25",
+      "email": "m.leonard@brightbeginningsfinancial.com",
+      "phone": "+1678-697-3428",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Coach, Audience, Score 5"
+    },
+    {
+      "id": "V020",
+      "name": "Silviya Kaiser-Davies \ud83d\udd25",
+      "email": "silviya.kaiser-davies@hotmail.co.uk",
+      "phone": "+44 7772 093 522",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Other, Too many ideas, Score 5"
+    },
+    {
+      "id": "V021",
+      "name": "Mich\u00e9lle",
+      "email": "silviya.kaiser-davies@hotmail.co.uk",
+      "phone": "+358466005565",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Creator, Live streaming, Score 4"
+    },
+    {
+      "id": "V022",
+      "name": "Ana Lizzethe",
+      "email": "analizpardo@gmail.com",
+      "phone": "525511585815",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Consistency, Score 4"
+    },
+    {
+      "id": "V023",
+      "name": "Tunde Otto",
+      "email": "Ottotunde15@gmail.com",
+      "phone": "19057037147",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-01",
+      "notes": "Founder, Tech know-how, Score 3"
+    },
+    {
+      "id": "V024",
+      "name": "Isoken Ibie \ud83d\udd25",
+      "email": "Isoken.ibie@gmail.com",
+      "phone": "+14168313042",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-02",
+      "notes": "Coach, Score 5"
+    },
+    {
+      "id": "V025",
+      "name": "Haingo Rama \ud83d\udd25",
+      "email": "Jaq6rhaingo@gmail.com",
+      "phone": "+1-343-558-7263",
+      "source": "Form",
+      "campaign": "C002",
+      "stage": "new",
+      "date": "2026-02-02",
+      "notes": "Founder, Visibility, Score 5"
+    }
+  ],
+  "campaigns": [
+    {
+      "id": "C001",
+      "name": "AI Leads Engine",
+      "type": "Lead Gen",
+      "status": "active",
+      "startDate": "2026-02-03",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/"
+    },
+    {
+      "id": "C002",
+      "name": "30-Day Viral Content",
+      "type": "Content",
+      "status": "active",
+      "startDate": "2026-02-01",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1byjsPYEEDUFhdZ0mECZrEIfJf19Cov7zC6RANy8SG1M/"
+    },
+    {
+      "id": "C003",
+      "name": "Speaker Blueprint System",
+      "type": "Funnel",
+      "status": "active",
+      "startDate": "2026-02-06",
+      "sheetUrl": ""
+    }
+  ],
+  "projects": [
+    {
+      "id": "P001",
+      "name": "Divine Wisdom",
+      "status": "active",
+      "progress": 20,
+      "category": "Knowledge"
+    },
+    {
+      "id": "P002",
+      "name": "Passenger Payback",
+      "status": "active",
+      "progress": 65,
+      "category": "Client"
+    },
+    {
+      "id": "P003",
+      "name": "AI Teams from YouTube",
+      "status": "active",
+      "progress": 45,
+      "category": "Product"
+    },
+    {
+      "id": "P004",
+      "name": "Divine Teams",
+      "status": "active",
+      "progress": 74,
+      "category": "Infrastructure"
+    },
+    {
+      "id": "P005",
+      "name": "AI Leads Engine",
+      "status": "active",
+      "progress": 30,
+      "category": "Sales"
+    },
+    {
+      "id": "P006",
+      "name": "Speaker Blueprint System",
+      "status": "deployed",
+      "progress": 100,
+      "category": "Product"
+    },
+    {
+      "id": "P007",
+      "name": "AI Prosperity 4.0",
+      "status": "active",
+      "progress": 15,
+      "category": "Launch"
+    },
+    {
+      "id": "P008",
+      "name": "MV Speaker Research",
+      "status": "active",
+      "progress": 85,
+      "category": "Research"
+    }
+  ],
+  "daily": [
+    {
+      "id": "D001",
+      "title": "Check emails",
+      "time": "09:00",
+      "done": false
+    },
+    {
+      "id": "D002",
+      "title": "Review calendar",
+      "time": "09:15",
+      "done": false
+    },
+    {
+      "id": "D003",
+      "title": "Contact HOT leads",
+      "time": "10:00",
+      "done": false
+    },
+    {
+      "id": "D004",
+      "title": "Check project statuses",
+      "time": "14:00",
+      "done": false
+    },
+    {
+      "id": "D005",
+      "title": "End of day review",
+      "time": "18:00",
+      "done": false
+    }
+  ],
+  "meetings": [
+    {
+      "id": "M001",
+      "title": "Daniel Mel\u00e9ndez Webinar",
+      "date": "2026-02-17",
+      "time": "18:00 EST",
+      "platform": "Zoom",
+      "status": "scheduled"
+    },
+    {
+      "id": "M002",
+      "title": "Mike - Passenger Payback",
+      "date": "2026-02-08",
+      "time": "TBD",
+      "platform": "TBD",
+      "status": "pending"
+    }
+  ],
+  "collabs": [
+    {
+      "id": "COL001",
+      "name": "Mike (Michael Pulley)",
+      "project": "Passenger Payback",
+      "role": "Partner",
+      "status": "active"
+    },
+    {
+      "id": "COL002",
+      "name": "Daniel Mel\u00e9ndez",
+      "project": "Aviation Webinar",
+      "role": "Client",
+      "status": "active"
+    },
+    {
+      "id": "COL003",
+      "name": "Nandini",
+      "project": "Success Masterclass",
+      "role": "Client",
+      "status": "paused"
+    }
+  ],
+  "followups": [
+    {
+      "id": "F000",
+      "person": "16 HOT Viral Content Leads",
+      "topic": "Send personalized DM with content preview",
+      "due": "2026-02-07",
+      "priority": "high"
+    },
+    {
+      "id": "F001",
+      "person": "Zhamila",
+      "topic": "AI Leads Engine - \u20ac1000 budget",
+      "due": "2026-02-07",
+      "priority": "high"
+    },
+    {
+      "id": "F002",
+      "person": "Zahir Kurwale",
+      "topic": "Inkspire Digital - $500 setup",
+      "due": "2026-02-07",
+      "priority": "high"
+    },
+    {
+      "id": "F003",
+      "person": "Nor Hani",
+      "topic": "Insurance leads Malaysia",
+      "due": "2026-02-07",
+      "priority": "high"
+    },
+    {
+      "id": "F004",
+      "person": "Tendai",
+      "topic": "Plastic materials SA - R20K",
+      "due": "2026-02-07",
+      "priority": "high"
+    },
+    {
+      "id": "F005",
+      "person": "Fadma",
+      "topic": "30-day content - close \u20ac47",
+      "due": "2026-02-08",
+      "priority": "high"
+    },
+    {
+      "id": "F006",
+      "person": "Mike",
+      "topic": "App Store submission status",
+      "due": "2026-02-08",
+      "priority": "medium"
+    },
+    {
+      "id": "F007",
+      "person": "Daniel Mel\u00e9ndez",
+      "topic": "Email platform setup",
+      "due": "2026-02-10",
+      "priority": "medium"
+    }
+  ],
+  "finance": {
+    "targets": {
+      "feb": 5000,
+      "mar": 15000,
+      "jun": 50000,
+      "dec": 120000
+    },
+    "expenses": {
+      "subscriptions": 1310,
+      "apis": 0,
+      "hosting": 0,
+      "tools": 0,
+      "totalMonthlyUSD": 1310,
+      "totalMonthlyINR": 110000,
+      "note": "All costs consolidated in subscriptions (includes APIs, hosting, tools)"
+    },
+    "pipelineValue": 2687,
+    "investments": {
+      "totalToolsInvested": 150000,
+      "period": "Oct 2025 - Jan 2026",
+      "vendor": "Syed (+91 6303 451 395)"
+    }
+  },
+  "subscriptions": [
+    {
+      "id": "S001",
+      "name": "OpenAI",
+      "cost": 20,
+      "status": "active",
+      "note": "GPT API",
+      "renewal": "monthly"
+    },
+    {
+      "id": "S002",
+      "name": "Supabase Pro",
+      "cost": 25,
+      "status": "active",
+      "note": "",
+      "renewal": "monthly"
+    },
+    {
+      "id": "S003",
+      "name": "GitHub Pro",
+      "cost": 4,
+      "status": "active",
+      "note": "",
+      "renewal": "monthly"
+    },
+    {
+      "id": "S004",
+      "name": "Apify",
+      "cost": 0,
+      "status": "active",
+      "note": "10 free keys",
+      "renewal": "free"
+    },
+    {
+      "id": "S005",
+      "name": "Zapier Pro",
+      "cost": 46,
+      "status": "active",
+      "note": "₹5,500 annual - linkedindomination2025@gmail.com",
+      "renewal": "Oct 9, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S006",
+      "name": "Higgsfield AI Ultimate #1",
+      "cost": 78,
+      "status": "active",
+      "note": "₹9,300 annual (monthly renewal) - lrkatszcq1919@hotmail.com",
+      "renewal": "Oct 25, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S007",
+      "name": "Higgsfield AI Ultimate #2",
+      "cost": 78,
+      "status": "active",
+      "note": "₹9,300 annual (monthly renewal)",
+      "renewal": "Nov 29, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S008",
+      "name": "Higgsfield AI Ultimate #3",
+      "cost": 78,
+      "status": "active",
+      "note": "₹9,300 annual (monthly renewal)",
+      "renewal": "Dec 25, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S009",
+      "name": "Apollo.io Professional",
+      "cost": 50,
+      "status": "active",
+      "note": "50% official + ₹2K activation - yashaswi@divinesuccessflow.com",
+      "renewal": "TBD",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S010",
+      "name": "Sora (ChatGPT)",
+      "cost": 17,
+      "status": "active",
+      "note": "₹2,000 - Code: GKEWE4 - Requires VPN",
+      "renewal": "TBD",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S011",
+      "name": "CapCut Pro",
+      "cost": 83,
+      "status": "active",
+      "note": "₹6,000 for 6 months - linkedindomination2025@gmail.com - Requires VPN",
+      "renewal": "May 7, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S012",
+      "name": "Nord VPN",
+      "cost": 25,
+      "status": "expiring",
+      "note": "3 months included with CapCut - CHECK EXPIRY ~Feb 7",
+      "renewal": "Feb 7, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S013",
+      "name": "Gumloop Solo",
+      "cost": 25,
+      "status": "active",
+      "note": "₹3,000 annual - divinesuccessflow@gmail.com - 10K credits",
+      "renewal": "Nov 8, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S014",
+      "name": "ClickUp Business",
+      "cost": 29,
+      "status": "active",
+      "note": "₹3,500 annual",
+      "renewal": "Dec 16, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S015",
+      "name": "Claude API Credits #1",
+      "cost": 250,
+      "status": "active",
+      "note": "₹18,000 - $500 credits - 6 months validity",
+      "renewal": "Jun 27, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S016",
+      "name": "Claude API Credits #2",
+      "cost": 250,
+      "status": "active",
+      "note": "₹18,000 - $500 credits - 6 months validity",
+      "renewal": "Jul 3, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S017",
+      "name": "OpenArt Infinite",
+      "cost": 50,
+      "status": "active",
+      "note": "1 year (monthly renewal) - Issues reported",
+      "renewal": "Jan 6, 2027",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S018",
+      "name": "GCP Credits",
+      "cost": 50,
+      "status": "active",
+      "note": "$300 credits - jisa7778881@gmail.com - India IP",
+      "renewal": "TBD",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S019",
+      "name": "Phantombuster Starter",
+      "cost": 73,
+      "status": "expiring",
+      "note": "₹2,200 monthly - fried_mom274@simplelogin.com - DUE FEB 22",
+      "renewal": "Feb 22, 2026",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S020",
+      "name": "Descript Creator",
+      "cost": 29,
+      "status": "active",
+      "note": "₹3,500 annual - $180 official",
+      "renewal": "Jan 22, 2027",
+      "vendor": "Syed"
+    },
+    {
+      "id": "S021",
+      "name": "N8N",
+      "cost": 0,
+      "status": "pending",
+      "note": "Delivery pending from Syed",
+      "renewal": "TBD",
+      "vendor": "Syed"
+    }
+  ],
+  "companies": [
+    {
+      "id": "CO001",
+      "name": "Divine Success Flow",
+      "type": "Holding",
+      "status": "active",
+      "launch": "",
+      "pricing": ""
+    },
+    {
+      "id": "CO002",
+      "name": "Passenger Payback",
+      "type": "SaaS",
+      "status": "pre-launch",
+      "launch": "2026-03-20",
+      "pricing": ""
+    },
+    {
+      "id": "CO003",
+      "name": "AI Leads Engine",
+      "type": "Agency",
+      "status": "active",
+      "launch": "",
+      "pricing": "$500-2000"
+    },
+    {
+      "id": "CO004",
+      "name": "Speaker Blueprint System",
+      "type": "Product",
+      "status": "active",
+      "launch": "2026-02-06",
+      "pricing": "$67"
+    }
+  ],
+  "ideas": [
+    {
+      "id": "I001",
+      "text": "AI Teams marketplace - sell pre-built team configurations",
+      "category": "Product",
+      "potential": "high"
+    },
+    {
+      "id": "I002",
+      "text": "Sanskrit AI tutor using Divine Wisdom database",
+      "category": "Education",
+      "potential": "high"
+    },
+    {
+      "id": "I003",
+      "text": "Speaker Blueprint SaaS - auto-generate from any IG",
+      "category": "SaaS",
+      "potential": "high"
+    },
+    {
+      "id": "I004",
+      "text": "Voice AI sales agent (using VAPI)",
+      "category": "AI",
+      "potential": "high"
+    }
+  ]
+}

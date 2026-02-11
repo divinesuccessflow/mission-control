@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center | Divine Success Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-hover: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --gold: #c9a84c;
+            --gold-dim: #8a7535;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --orange: #f97316;
+            --cyan: #06b6d4;
+            --border: #2a2a35;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.5; }
+        
+        .header { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), var(--gold-dim)); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .logo-text { font-weight: 700; font-size: 1.25rem; }
+        .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
+        .header-actions { display: flex; gap: 0.5rem; align-items: center; }
+        .header-time { text-align: right; font-family: 'JetBrains Mono', monospace; }
+        .header-date { font-size: 0.875rem; color: var(--text-secondary); }
+        .header-clock { font-size: 1.5rem; font-weight: 600; color: var(--gold); }
+        
+        .btn { padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: var(--gold); color: var(--bg-primary); }
+        .btn-primary:hover { background: var(--gold-dim); }
+        .btn-secondary { background: var(--bg-hover); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+        .btn-danger { background: rgba(239,68,68,0.2); color: var(--red); }
+        .btn-danger:hover { background: rgba(239,68,68,0.3); }
+        .btn-success { background: rgba(34,197,94,0.2); color: var(--green); }
+        .btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
+        .btn-icon { padding: 0.4rem; min-width: 28px; justify-content: center; }
+        
+        .nav { background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; gap: 0.25rem; overflow-x: auto; }
+        .nav-item { padding: 1rem 1rem; font-size: 0.8rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+        .nav-item:hover { color: var(--text-primary); background: var(--bg-hover); }
+        .nav-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+        
+        .container { max-width: 1800px; margin: 0 auto; padding: 1.5rem; }
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 1200px) { .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; } .container { padding: 1rem; } .nav { padding: 0 1rem; } }
+        
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+        .card-title { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        
+        .section { margin-bottom: 2rem; display: none; }
+        .section.active { display: block; }
+        .section-header { margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; }
+        .section-sub { color: var(--text-secondary); font-size: 0.875rem; }
+        
+        .overview-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .mini-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center; }
+        .mini-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+        .mini-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .list { list-style: none; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--border); gap: 0.5rem; }
+        .list-item:last-child { border-bottom: none; }
+        .list-item-content { flex: 1; min-width: 0; }
+        .list-item-title { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .list-item-sub { font-size: 0.75rem; color: var(--text-muted); }
+        .list-item-actions { display: flex; gap: 0.25rem; flex-shrink: 0; }
+        
+        .tag { display: inline-block; font-size: 0.65rem; padding: 0.2rem 0.4rem; border-radius: 4px; font-weight: 500; text-transform: uppercase; }
+        .tag-high { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+        .tag-medium { background: rgba(249, 115, 22, 0.2); color: var(--orange); }
+        .tag-low { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+        .tag-active { background: rgba(34, 197, 94, 0.2); color: var(--green); }
+        .tag-pending { background: rgba(168, 85, 247, 0.2); color: var(--purple); }
+        .tag-completed { background: rgba(201, 168, 76, 0.2); color: var(--gold); }
+        .tag-new { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
+        .tag-paused { background: rgba(249, 115, 22, 0.2); color: var(--orange); }
+        
+        .progress-bar { height: 6px; background: var(--bg-hover); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); border-radius: 3px; }
+        
+        .checkbox { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; margin-right: 0.5rem; }
+        .checkbox.checked { background: var(--gold); border-color: var(--gold); }
+        .checkbox.checked::after { content: '✓'; color: var(--bg-primary); font-size: 0.75rem; font-weight: 700; }
+        
+        .kanban-container { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
+        .kanban-column { min-width: 260px; max-width: 300px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; }
+        .kanban-header { padding: 0.75rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .kanban-title { font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
+        .kanban-count { background: var(--bg-hover); padding: 0.15rem 0.4rem; border-radius: 999px; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; }
+        .kanban-body { padding: 0.5rem; flex: 1; min-height: 150px; }
+        .kanban-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.6rem; margin-bottom: 0.4rem; cursor: grab; transition: all 0.2s; }
+        .kanban-card:hover { border-color: var(--gold); }
+        .kanban-card-header { display: flex; justify-content: space-between; align-items: start; gap: 0.25rem; }
+        .kanban-card-title { font-weight: 500; font-size: 0.8rem; flex: 1; }
+        .kanban-card-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+        .kanban-card-actions { display: flex; gap: 0.15rem; }
+        .kanban-card-actions .btn { padding: 0.2rem 0.3rem; font-size: 0.65rem; }
+        
+        .campaign-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+        .campaign-card:hover { border-color: var(--gold); }
+        .campaign-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; }
+        .campaign-name { font-size: 1rem; font-weight: 600; }
+        .campaign-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 0.75rem 0; }
+        .campaign-stat { text-align: center; padding: 0.4rem; background: var(--bg-hover); border-radius: var(--radius-sm); }
+        .campaign-stat-value { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--gold); }
+        .campaign-stat-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; }
+        .campaign-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 1rem; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .modal-title { font-size: 1.1rem; font-weight: 600; }
+        .modal-close { cursor: pointer; font-size: 1.5rem; color: var(--text-muted); line-height: 1; }
+        .modal-close:hover { color: var(--text-primary); }
+        
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--text-secondary); }
+        .form-input { width: 100%; padding: 0.6rem; background: var(--bg-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 0.875rem; }
+        .form-input:focus { outline: none; border-color: var(--gold); }
+        .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a0a0b0' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        
+        .sub-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+        .sub-row:last-child { border-bottom: none; }
+        
+        .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 0.75rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem; z-index: 1001; transform: translateY(100px); opacity: 0; transition: all 0.3s; font-size: 0.875rem; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-color: var(--green); }
+        .toast.error { border-color: var(--red); }
+        
+        .sync-status { display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--text-muted); }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+        
+        .empty-state { text-align: center; padding: 2rem; color: var(--text-muted); }
+        
+        .item-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; transition: border-color 0.2s; }
+        .item-card:hover { border-color: var(--gold-dim); }
+        .item-card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+        .item-card-title { font-weight: 600; }
+        .item-card-actions { display: flex; gap: 0.25rem; }
+        .item-card-meta { font-size: 0.75rem; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <div class="logo-text">Command Center</div>
+                <div class="logo-sub">Divine Success Flow</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="sync-status"><div class="sync-dot"></div><span>Ready</span></div>
+            <button class="btn btn-secondary btn-sm" onclick="syncGoogleSheets()">🔄 Sync</button>
+            <button class="btn btn-primary btn-sm" onclick="openQuickAdd()">+ Add</button>
+        </div>
+        <div class="header-time">
+            <div class="header-date" id="currentDate"></div>
+            <div class="header-clock" id="currentTime"></div>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="nav-item active" data-section="overview">📊 Overview</div>
+        <div class="nav-item" data-section="campaigns">🚀 Campaigns</div>
+        <div class="nav-item" data-section="leads">👥 Leads</div>
+        <div class="nav-item" data-section="tasks">✅ Tasks</div>
+        <div class="nav-item" data-section="projects">📁 Projects</div>
+        <div class="nav-item" data-section="daily">🔄 Daily</div>
+        <div class="nav-item" data-section="meetings">📅 Meetings</div>
+        <div class="nav-item" data-section="collabs">🤝 Partners</div>
+        <div class="nav-item" data-section="followups">📞 Follow-ups</div>
+        <div class="nav-item" data-section="finance">💰 Finance</div>
+        <div class="nav-item" data-section="companies">🏢 Companies</div>
+        <div class="nav-item" data-section="ideas">💡 Ideas</div>
+    </nav>
+    
+    <main class="container">
+        <!-- OVERVIEW -->
+        <section class="section active" id="overview">
+            <div class="section-header"><div><h2 class="section-title">Dashboard</h2><p class="section-sub">Your command center at a glance</p></div></div>
+            <div class="overview-stats">
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-leads">0</div><div class="mini-stat-label">Leads</div></div>
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-campaigns">0</div><div class="mini-stat-label">Campaigns</div></div>
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-tasks">0</div><div class="mini-stat-label">Tasks</div></div>
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-projects">0</div><div class="mini-stat-label">Projects</div></div>
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-companies">0</div><div class="mini-stat-label">Companies</div></div>
+                <div class="mini-stat"><div class="mini-stat-value" id="stat-followups">0</div><div class="mini-stat-label">Follow-ups</div></div>
+            </div>
+            <div class="grid grid-3">
+                <div class="card"><div class="card-header"><span class="card-title">🚀 Active Campaigns</span></div><div id="overview-campaigns"></div></div>
+                <div class="card"><div class="card-header"><span class="card-title">🔥 Priority Tasks</span></div><ul class="list" id="overview-tasks"></ul></div>
+                <div class="card"><div class="card-header"><span class="card-title">📞 Upcoming Follow-ups</span></div><ul class="list" id="overview-followups"></ul></div>
+            </div>
+        </section>
+        
+        <!-- CAMPAIGNS -->
+        <section class="section" id="campaigns">
+            <div class="section-header"><div><h2 class="section-title">Campaigns</h2><p class="section-sub">Manage your marketing campaigns</p></div><button class="btn btn-primary" onclick="openCampaignModal()">+ New Campaign</button></div>
+            <div class="grid grid-3" id="campaigns-list"></div>
+        </section>
+        
+        <!-- LEADS -->
+        <section class="section" id="leads">
+            <div class="section-header">
+                <div><h2 class="section-title">Lead Management</h2><p class="section-sub">Drag leads between stages</p></div>
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <select class="form-input form-select" id="leadFilter" style="width:180px;" onchange="renderKanban()"><option value="all">All Campaigns</option></select>
+                    <button class="btn btn-primary" onclick="openLeadModal()">+ Add Lead</button>
+                </div>
+            </div>
+            <div class="kanban-container" id="kanban-board"></div>
+        </section>
+        
+        <!-- TASKS -->
+        <section class="section" id="tasks">
+            <div class="section-header"><div><h2 class="section-title">Tasks</h2><p class="section-sub">Your action items</p></div><button class="btn btn-primary" onclick="openTaskModal()">+ Add Task</button></div>
+            <div class="card"><ul class="list" id="tasks-list"></ul></div>
+        </section>
+        
+        <!-- PROJECTS -->
+        <section class="section" id="projects">
+            <div class="section-header"><div><h2 class="section-title">Projects</h2><p class="section-sub">Track project progress</p></div><button class="btn btn-primary" onclick="openProjectModal()">+ Add Project</button></div>
+            <div class="grid grid-2" id="projects-list"></div>
+        </section>
+        
+        <!-- DAILY -->
+        <section class="section" id="daily">
+            <div class="section-header"><div><h2 class="section-title">Daily Routines</h2><p class="section-sub">Your recurring tasks</p></div>
+                <div style="display:flex;gap:0.5rem;">
+                    <button class="btn btn-secondary" onclick="resetDaily()">Reset All</button>
+                    <button class="btn btn-primary" onclick="openDailyModal()">+ Add Routine</button>
+                </div>
+            </div>
+            <div class="card"><ul class="list" id="daily-list"></ul></div>
+        </section>
+        
+        <!-- MEETINGS -->
+        <section class="section" id="meetings">
+            <div class="section-header"><div><h2 class="section-title">Meetings</h2><p class="section-sub">Scheduled events</p></div><button class="btn btn-primary" onclick="openMeetingModal()">+ Schedule Meeting</button></div>
+            <div class="card"><ul class="list" id="meetings-list"></ul></div>
+        </section>
+        
+        <!-- PARTNERS -->
+        <section class="section" id="collabs">
+            <div class="section-header"><div><h2 class="section-title">Partners & Collaborators</h2><p class="section-sub">People you work with</p></div><button class="btn btn-primary" onclick="openCollabModal()">+ Add Partner</button></div>
+            <div class="grid grid-3" id="collabs-list"></div>
+        </section>
+        
+        <!-- FOLLOW-UPS -->
+        <section class="section" id="followups">
+            <div class="section-header"><div><h2 class="section-title">Follow-ups</h2><p class="section-sub">Pending outreach</p></div><button class="btn btn-primary" onclick="openFollowupModal()">+ Add Follow-up</button></div>
+            <div class="card"><ul class="list" id="followups-list"></ul></div>
+        </section>
+        
+        <!-- FINANCE -->
+        <section class="section" id="finance">
+            <div class="section-header"><div><h2 class="section-title">Finance</h2><p class="section-sub">Revenue & expenses</p></div><button class="btn btn-primary" onclick="openSubscriptionModal()">+ Add Subscription</button></div>
+            <div class="grid grid-2">
+                <div class="card"><div class="card-header"><span class="card-title">💵 Revenue Targets</span><button class="btn btn-sm btn-secondary" onclick="openFinanceModal()">Edit</button></div><div id="finance-targets"></div></div>
+                <div class="card"><div class="card-header"><span class="card-title">📊 Monthly Expenses</span></div><div id="finance-expenses"></div></div>
+            </div>
+            <div class="card" style="margin-top:1rem;"><div class="card-header"><span class="card-title">🔄 Subscriptions</span></div><div id="subscriptions-list"></div></div>
+        </section>
+        
+        <!-- COMPANIES -->
+        <section class="section" id="companies">
+            <div class="section-header"><div><h2 class="section-title">Companies</h2><p class="section-sub">Your business portfolio</p></div><button class="btn btn-primary" onclick="openCompanyModal()">+ Add Company</button></div>
+            <div class="grid grid-3" id="companies-list"></div>
+        </section>
+        
+        <!-- IDEAS -->
+        <section class="section" id="ideas">
+            <div class="section-header"><div><h2 class="section-title">Idea Bucket</h2><p class="section-sub">Creative concepts</p></div><button class="btn btn-primary" onclick="openIdeaModal()">+ Add Idea</button></div>
+            <div class="grid grid-2" id="ideas-list"></div>
+        </section>
+    </main>
+    
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header"><span class="modal-title" id="modalTitle">Add</span><span class="modal-close" onclick="closeModal()">&times;</span></div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"><span id="toastIcon">✅</span><span id="toastMessage"></span></div>
+    
+    <script>
+    // ========== DATA ==========
+    const D = {
+        campaigns: [
+            {id:'C0',name:'🚀 AI Prosperity Launch',type:'Launch',status:'active',sheetUrl:'',startDate:'2026-02-01',launchDate:'2026-03-11'},
+            {id:'C1',name:'30 Days Post in 1 Day',type:'Content',status:'active',sheetUrl:'',startDate:'2026-02-01'},
+            {id:'C2',name:'AI Lead Engine',type:'Lead Gen',status:'active',sheetUrl:'',startDate:'2026-01-15'},
+            {id:'C3',name:'AI Genie Viral Funnel',type:'Funnel',status:'active',sheetUrl:'https://forms.gle/zgQ7T6cJuQtojezg9',startDate:'2026-02-01'}
+        ],
+        leads: [
+            {id:'L1',name:'John Doe',email:'john@test.com',phone:'',campaign:'C1',stage:'new',source:'Form',date:'2026-02-06'},
+            {id:'L2',name:'Jane Smith',email:'jane@test.com',phone:'',campaign:'C2',stage:'contacted',source:'DM',date:'2026-02-05'}
+        ],
+        stages: [{id:'new',name:'New',icon:'🆕'},{id:'contacted',name:'Contacted',icon:'📧'},{id:'qualified',name:'Qualified',icon:'✅'},{id:'proposal',name:'Proposal',icon:'📝'},{id:'won',name:'Won',icon:'🎉'},{id:'lost',name:'Lost',icon:'❌'}],
+        tasks: [
+            {id:'T1',title:'Divine Wisdom - Create Supabase',project:'Divine Wisdom',priority:'high',due:'2026-02-06',done:false},
+            {id:'T2',title:'Send Daniel 1,000 emails',project:'Client',priority:'high',due:'2026-02-10',done:false},
+            {id:'T3',title:'Build Divine Marketing Team',project:'Divine Teams',priority:'medium',due:'2026-02-07',done:false},
+            {id:'T4',title:'Convert Apple Guide to PDF',project:'Passenger Payback',priority:'medium',due:'2026-02-08',done:false}
+        ],
+        projects: [
+            {id:'P0',name:'🚀 AI Prosperity 4.0',status:'active',progress:20,category:'LAUNCH Mar 11'},
+            {id:'P1',name:'Divine Wisdom',status:'active',progress:15,category:'Knowledge'},
+            {id:'P2',name:'Passenger Payback',status:'active',progress:65,category:'Client'},
+            {id:'P3',name:'AI Teams from YouTube',status:'active',progress:40,category:'Product'},
+            {id:'P4',name:'Divine Teams',status:'active',progress:74,category:'Infrastructure'},
+            {id:'P5',name:'Command Center',status:'active',progress:95,category:'Infrastructure'}
+        ],
+        daily: [
+            {id:'D1',title:'Check emails',time:'09:00',done:false},
+            {id:'D2',title:'Review calendar',time:'09:15',done:false},
+            {id:'D3',title:'Check campaign leads',time:'11:00',done:false},
+            {id:'D4',title:'Project status check',time:'14:00',done:false},
+            {id:'D5',title:'End of day review',time:'18:00',done:false}
+        ],
+        meetings: [
+            {id:'M1',title:'Daniel Meléndez Webinar',date:'2026-02-17',time:'18:00 EST',platform:'Zoom',status:'scheduled'},
+            {id:'M2',title:'Mike - PP Check-in',date:'2026-02-08',time:'TBD',platform:'TBD',status:'pending'}
+        ],
+        collabs: [
+            {id:'COL1',name:'Mike (Michael Pulley)',project:'Passenger Payback',role:'Partner',status:'active'},
+            {id:'COL2',name:'Jolly',project:'Divine Success Flow',role:'Partner',status:'active'},
+            {id:'COL3',name:'Daniel Meléndez',project:'Aviation Webinar',role:'Client',status:'active'},
+            {id:'COL4',name:'Nandini',project:'Success Masterclass',role:'Client',status:'paused'}
+        ],
+        followups: [
+            {id:'F1',person:'Mike',topic:'App Store status',due:'2026-02-08',priority:'high'},
+            {id:'F2',person:'Daniel',topic:'Email platform setup',due:'2026-02-10',priority:'high'},
+            {id:'F3',person:'Jolly',topic:'Partnership sync',due:'2026-02-07',priority:'medium'}
+        ],
+        finance: {
+            targets:{feb:5000,mar:15000,jun:50000,dec:120000},
+            expenses:{subscriptions:150,apis:75,hosting:45,tools:30}
+        },
+        subscriptions: [
+            {id:'S1',name:'OpenAI',cost:20,status:'active'},
+            {id:'S2',name:'Supabase Pro',cost:25,status:'active'},
+            {id:'S3',name:'GitHub Pro',cost:4,status:'active'},
+            {id:'S4',name:'Apify',cost:0,status:'active',note:'Free'},
+            {id:'S5',name:'Apple Developer',cost:99,status:'pending',note:'Yearly'}
+        ],
+        companies: [
+            {id:'CO1',name:'Divine Success Flow',type:'Holding',status:'active'},
+            {id:'CO2',name:'Passenger Payback',type:'SaaS',status:'pre-launch',launch:'2026-03-20'},
+            {id:'CO3',name:'AI Genie',type:'SaaS',status:'concept',pricing:'$47-197'},
+            {id:'CO4',name:'Divine Leads CRM',type:'SaaS',status:'MVP'},
+            {id:'CO5',name:'France RE Leads',type:'Agency',status:'active'}
+        ],
+        ideas: [
+            {id:'I1',text:'AI Teams marketplace',category:'Product',potential:'high'},
+            {id:'I2',text:'Sanskrit AI tutor',category:'Education',potential:'high'},
+            {id:'I3',text:'Voice AI sales agent (VAPI)',category:'AI',potential:'high'},
+            {id:'I4',text:'YouTube-to-course pipeline',category:'Education',potential:'medium'},
+            {id:'I5',text:'News/X/LinkedIn feed → Content & Opportunities converter (auto-repurpose trending topics into posts + identify business opportunities)',category:'AI',potential:'high'},
+            {id:'I6',text:'New purpose-driven social media platform (something that doesnt exist yet - rethink social from first principles)',category:'Product',potential:'high'}
+        ]
+    };
+    
+    // ========== TIME ==========
+    function updateTime(){
+        const n=new Date();
+        document.getElementById('currentDate').textContent=n.toLocaleDateString('en-IN',{weekday:'short',month:'short',day:'numeric'});
+        document.getElementById('currentTime').textContent=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    }
+    setInterval(updateTime,1000);updateTime();
+    
+    // ========== NAV ==========
+    document.querySelectorAll('.nav-item').forEach(i=>i.addEventListener('click',()=>{
+        document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+        i.classList.add('active');
+        document.getElementById(i.dataset.section).classList.add('active');
+    }));
+    
+    // ========== TOAST ==========
+    function toast(msg,type='success'){
+        const t=document.getElementById('toast');
+        document.getElementById('toastMessage').textContent=msg;
+        document.getElementById('toastIcon').textContent=type==='success'?'✅':'❌';
+        t.className='toast show '+type;
+        setTimeout(()=>t.classList.remove('show'),3000);
+    }
+    
+    // ========== MODAL ==========
+    function modal(title,html){
+        document.getElementById('modalTitle').textContent=title;
+        document.getElementById('modalContent').innerHTML=html;
+        document.getElementById('modal').classList.add('active');
+    }
+    function closeModal(e){if(!e||e.target.id==='modal')document.getElementById('modal').classList.remove('active');}
+    
+    // ========== SYNC ==========
+    function syncGoogleSheets(){toast('Sync feature ready - configure Sheet URLs in campaigns');}
+    
+    // ========== QUICK ADD ==========
+    function openQuickAdd(){
+        modal('Quick Add',`<div class="grid grid-2" style="gap:0.75rem;">
+            <button class="btn btn-secondary" onclick="closeModal();openTaskModal()">✅ Task</button>
+            <button class="btn btn-secondary" onclick="closeModal();openLeadModal()">👤 Lead</button>
+            <button class="btn btn-secondary" onclick="closeModal();openCampaignModal()">🚀 Campaign</button>
+            <button class="btn btn-secondary" onclick="closeModal();openMeetingModal()">📅 Meeting</button>
+            <button class="btn btn-secondary" onclick="closeModal();openProjectModal()">📁 Project</button>
+            <button class="btn btn-secondary" onclick="closeModal();openIdeaModal()">💡 Idea</button>
+        </div>`);
+    }
+    
+    // ========== CAMPAIGNS ==========
+    function renderCampaigns(){
+        document.getElementById('campaigns-list').innerHTML=D.campaigns.map(c=>`
+            <div class="campaign-card">
+                <div class="campaign-header">
+                    <div><div class="campaign-name">${c.name}</div><div style="font-size:0.7rem;color:var(--text-muted)">${c.type} • ${c.startDate}</div></div>
+                    <span class="tag tag-${c.status}">${c.status}</span>
+                </div>
+                <div class="campaign-stats">
+                    <div class="campaign-stat"><div class="campaign-stat-value">${D.leads.filter(l=>l.campaign===c.id).length}</div><div class="campaign-stat-label">Leads</div></div>
+                    <div class="campaign-stat"><div class="campaign-stat-value">${D.leads.filter(l=>l.campaign===c.id&&l.stage==='qualified').length}</div><div class="campaign-stat-label">Qualified</div></div>
+                    <div class="campaign-stat"><div class="campaign-stat-value">${D.leads.filter(l=>l.campaign===c.id&&l.stage==='won').length}</div><div class="campaign-stat-label">Won</div></div>
+                </div>
+                <div class="campaign-actions">
+                    <button class="btn btn-sm btn-secondary" onclick="viewCampaignLeads('${c.id}')">👥 Leads</button>
+                    <button class="btn btn-sm btn-secondary" onclick="editCampaign('${c.id}')">✏️ Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteCampaign('${c.id}')">🗑️</button>
+                </div>
+            </div>
+        `).join('')||'<div class="empty-state">No campaigns yet</div>';
+        
+        document.getElementById('overview-campaigns').innerHTML=D.campaigns.slice(0,3).map(c=>`
+            <div style="padding:0.5rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;">
+                <span>${c.name}</span><span style="color:var(--gold)">${D.leads.filter(l=>l.campaign===c.id).length} leads</span>
+            </div>
+        `).join('');
+        
+        document.getElementById('leadFilter').innerHTML=`<option value="all">All Campaigns</option>${D.campaigns.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}`;
+    }
+    
+    function openCampaignModal(id){
+        const c=id?D.campaigns.find(x=>x.id===id):{};
+        modal(id?'Edit Campaign':'New Campaign',`
+            <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="cName" value="${c.name||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Type</label><select class="form-input form-select" id="cType">
+                    <option ${c.type==='Content'?'selected':''}>Content</option><option ${c.type==='Lead Gen'?'selected':''}>Lead Gen</option>
+                    <option ${c.type==='Funnel'?'selected':''}>Funnel</option><option ${c.type==='Ads'?'selected':''}>Ads</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="cStatus">
+                    <option ${c.status==='active'?'selected':''}>active</option><option ${c.status==='paused'?'selected':''}>paused</option><option ${c.status==='completed'?'selected':''}>completed</option>
+                </select></div>
+            </div>
+            <div class="form-group"><label class="form-label">Google Sheet URL</label><input class="form-input" id="cSheet" value="${c.sheetUrl||''}"></div>
+            <button class="btn btn-primary" onclick="saveCampaign('${id||''}')">${id?'Update':'Create'}</button>
+        `);
+    }
+    function editCampaign(id){openCampaignModal(id);}
+    function saveCampaign(id){
+        const obj={name:document.getElementById('cName').value,type:document.getElementById('cType').value,status:document.getElementById('cStatus').value,sheetUrl:document.getElementById('cSheet').value,startDate:new Date().toISOString().split('T')[0]};
+        if(!obj.name)return toast('Name required','error');
+        if(id){const c=D.campaigns.find(x=>x.id===id);Object.assign(c,obj);}
+        else{obj.id='C'+Date.now();D.campaigns.push(obj);}
+        closeModal();renderAll();toast(id?'Campaign updated':'Campaign created');
+    }
+    function deleteCampaign(id){if(confirm('Delete this campaign?')){D.campaigns=D.campaigns.filter(x=>x.id!==id);renderAll();toast('Campaign deleted');}}
+    function viewCampaignLeads(id){document.getElementById('leadFilter').value=id;document.querySelector('[data-section="leads"]').click();renderKanban();}
+    
+    // ========== LEADS KANBAN ==========
+    function renderKanban(){
+        const f=document.getElementById('leadFilter').value;
+        const leads=f==='all'?D.leads:D.leads.filter(l=>l.campaign===f);
+        document.getElementById('kanban-board').innerHTML=D.stages.map(s=>{
+            const sl=leads.filter(l=>l.stage===s.id);
+            return`<div class="kanban-column" data-stage="${s.id}">
+                <div class="kanban-header"><span class="kanban-title">${s.icon} ${s.name}</span><span class="kanban-count">${sl.length}</span></div>
+                <div class="kanban-body" ondrop="dropLead(event,'${s.id}')" ondragover="event.preventDefault()">
+                    ${sl.map(l=>`<div class="kanban-card" draggable="true" ondragstart="event.dataTransfer.setData('text','${l.id}')">
+                        <div class="kanban-card-header">
+                            <div class="kanban-card-title">${l.name}</div>
+                            <div class="kanban-card-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="editLead('${l.id}')">✏️</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteLead('${l.id}')">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="kanban-card-sub">${l.email}</div>
+                        <div style="display:flex;gap:0.25rem;margin-top:0.3rem;flex-wrap:wrap;">
+                            <span class="tag tag-new">${l.source}</span>
+                            <span style="font-size:0.6rem;color:var(--text-muted)">${l.date}</span>
+                        </div>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+        }).join('');
+    }
+    function dropLead(e,stage){e.preventDefault();const id=e.dataTransfer.getData('text');const l=D.leads.find(x=>x.id===id);if(l){l.stage=stage;renderKanban();toast('Lead moved');}}
+    function openLeadModal(id){
+        const l=id?D.leads.find(x=>x.id===id):{};
+        modal(id?'Edit Lead':'Add Lead',`
+            <div class="form-row"><div class="form-group"><label class="form-label">Name</label><input class="form-input" id="lName" value="${l.name||''}"></div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="lEmail" value="${l.email||''}"></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="lPhone" value="${l.phone||''}"></div>
+            <div class="form-group"><label class="form-label">Source</label><select class="form-input form-select" id="lSource">
+                <option ${l.source==='Form'?'selected':''}>Form</option><option ${l.source==='DM'?'selected':''}>DM</option>
+                <option ${l.source==='Referral'?'selected':''}>Referral</option><option ${l.source==='Ads'?'selected':''}>Ads</option>
+            </select></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label">Campaign</label><select class="form-input form-select" id="lCampaign">
+                ${D.campaigns.map(c=>`<option value="${c.id}" ${l.campaign===c.id?'selected':''}>${c.name}</option>`).join('')}
+            </select></div>
+            <div class="form-group"><label class="form-label">Stage</label><select class="form-input form-select" id="lStage">
+                ${D.stages.map(s=>`<option value="${s.id}" ${l.stage===s.id?'selected':''}>${s.name}</option>`).join('')}
+            </select></div></div>
+            <button class="btn btn-primary" onclick="saveLead('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editLead(id){openLeadModal(id);}
+    function saveLead(id){
+        const obj={name:document.getElementById('lName').value,email:document.getElementById('lEmail').value,phone:document.getElementById('lPhone').value,source:document.getElementById('lSource').value,campaign:document.getElementById('lCampaign').value,stage:document.getElementById('lStage').value,date:new Date().toISOString().split('T')[0]};
+        if(!obj.name||!obj.email)return toast('Name & email required','error');
+        if(id){const l=D.leads.find(x=>x.id===id);Object.assign(l,obj);}else{obj.id='L'+Date.now();D.leads.push(obj);}
+        closeModal();renderAll();toast(id?'Lead updated':'Lead added');
+    }
+    function deleteLead(id){if(confirm('Delete this lead?')){D.leads=D.leads.filter(x=>x.id!==id);renderAll();toast('Lead deleted');}}
+    
+    // ========== TASKS ==========
+    function renderTasks(){
+        document.getElementById('tasks-list').innerHTML=D.tasks.map(t=>`
+            <li class="list-item">
+                <div class="checkbox ${t.done?'checked':''}" onclick="toggleTask('${t.id}')"></div>
+                <div class="list-item-content">
+                    <div class="list-item-title" style="${t.done?'text-decoration:line-through;opacity:0.5':''}">${t.title}</div>
+                    <div class="list-item-sub">${t.project} • Due: ${t.due}</div>
+                </div>
+                <div class="list-item-actions">
+                    <span class="tag tag-${t.priority}">${t.priority}</span>
+                    <button class="btn btn-sm btn-icon btn-secondary" onclick="editTask('${t.id}')">✏️</button>
+                    <button class="btn btn-sm btn-icon btn-danger" onclick="deleteTask('${t.id}')">🗑️</button>
+                </div>
+            </li>
+        `).join('')||'<div class="empty-state">No tasks</div>';
+        
+        document.getElementById('overview-tasks').innerHTML=D.tasks.filter(t=>!t.done&&t.priority==='high').slice(0,4).map(t=>`
+            <li class="list-item"><div class="list-item-content"><div class="list-item-title">${t.title}</div><div class="list-item-sub">Due: ${t.due}</div></div>
+            <button class="btn btn-sm btn-success" onclick="toggleTask('${t.id}')">✓</button></li>
+        `).join('')||'<div class="empty-state">No priority tasks</div>';
+    }
+    function toggleTask(id){const t=D.tasks.find(x=>x.id===id);if(t)t.done=!t.done;renderTasks();}
+    function openTaskModal(id){
+        const t=id?D.tasks.find(x=>x.id===id):{};
+        modal(id?'Edit Task':'Add Task',`
+            <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="tTitle" value="${t.title||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Project</label><input class="form-input" id="tProject" value="${t.project||''}"></div>
+                <div class="form-group"><label class="form-label">Priority</label><select class="form-input form-select" id="tPriority">
+                    <option ${t.priority==='high'?'selected':''}>high</option><option ${t.priority==='medium'?'selected':''}>medium</option><option ${t.priority==='low'?'selected':''}>low</option>
+                </select></div>
+            </div>
+            <div class="form-group"><label class="form-label">Due Date</label><input type="date" class="form-input" id="tDue" value="${t.due||''}"></div>
+            <button class="btn btn-primary" onclick="saveTask('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editTask(id){openTaskModal(id);}
+    function saveTask(id){
+        const obj={title:document.getElementById('tTitle').value,project:document.getElementById('tProject').value,priority:document.getElementById('tPriority').value,due:document.getElementById('tDue').value,done:false};
+        if(!obj.title)return toast('Title required','error');
+        if(id){const t=D.tasks.find(x=>x.id===id);Object.assign(t,obj);}else{obj.id='T'+Date.now();D.tasks.unshift(obj);}
+        closeModal();renderTasks();toast(id?'Task updated':'Task added');
+    }
+    function deleteTask(id){D.tasks=D.tasks.filter(x=>x.id!==id);renderTasks();toast('Task deleted');}
+    
+    // ========== PROJECTS ==========
+    function renderProjects(){
+        document.getElementById('projects-list').innerHTML=D.projects.map(p=>`
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-card-title">${p.name}</div>
+                    <div class="item-card-actions">
+                        <span class="tag tag-${p.status}">${p.status}</span>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editProject('${p.id}')">✏️</button>
+                        <button class="btn btn-sm btn-icon btn-danger" onclick="deleteProject('${p.id}')">🗑️</button>
+                    </div>
+                </div>
+                <div class="item-card-meta">${p.category}</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;">
+                    <div class="progress-bar" style="flex:1;margin:0;"><div class="progress-fill" style="width:${p.progress}%"></div></div>
+                    <span style="font-family:'JetBrains Mono';color:var(--gold);font-size:0.8rem;">${p.progress}%</span>
+                </div>
+            </div>
+        `).join('');
+    }
+    function openProjectModal(id){
+        const p=id?D.projects.find(x=>x.id===id):{};
+        modal(id?'Edit Project':'Add Project',`
+            <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="pName" value="${p.name||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Category</label><input class="form-input" id="pCategory" value="${p.category||''}"></div>
+                <div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="pStatus">
+                    <option ${p.status==='active'?'selected':''}>active</option><option ${p.status==='paused'?'selected':''}>paused</option>
+                    <option ${p.status==='completed'?'selected':''}>completed</option><option ${p.status==='deployed'?'selected':''}>deployed</option>
+                </select></div>
+            </div>
+            <div class="form-group"><label class="form-label">Progress (%)</label><input type="number" min="0" max="100" class="form-input" id="pProgress" value="${p.progress||0}"></div>
+            <button class="btn btn-primary" onclick="saveProject('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editProject(id){openProjectModal(id);}
+    function saveProject(id){
+        const obj={name:document.getElementById('pName').value,category:document.getElementById('pCategory').value,status:document.getElementById('pStatus').value,progress:parseInt(document.getElementById('pProgress').value)||0};
+        if(!obj.name)return toast('Name required','error');
+        if(id){const p=D.projects.find(x=>x.id===id);Object.assign(p,obj);}else{obj.id='P'+Date.now();D.projects.push(obj);}
+        closeModal();renderProjects();toast(id?'Project updated':'Project added');
+    }
+    function deleteProject(id){if(confirm('Delete project?')){D.projects=D.projects.filter(x=>x.id!==id);renderProjects();toast('Project deleted');}}
+    
+    // ========== DAILY ==========
+    function renderDaily(){
+        document.getElementById('daily-list').innerHTML=D.daily.map(d=>`
+            <li class="list-item">
+                <div class="checkbox ${d.done?'checked':''}" onclick="toggleDaily('${d.id}')"></div>
+                <div class="list-item-content"><div class="list-item-title">${d.title}</div></div>
+                <div class="list-item-actions">
+                    <span style="font-family:'JetBrains Mono';color:var(--text-muted);font-size:0.8rem;">${d.time}</span>
+                    <button class="btn btn-sm btn-icon btn-secondary" onclick="editDaily('${d.id}')">✏️</button>
+                    <button class="btn btn-sm btn-icon btn-danger" onclick="deleteDaily('${d.id}')">🗑️</button>
+                </div>
+            </li>
+        `).join('');
+    }
+    function toggleDaily(id){const d=D.daily.find(x=>x.id===id);if(d)d.done=!d.done;renderDaily();}
+    function resetDaily(){D.daily.forEach(d=>d.done=false);renderDaily();toast('Daily tasks reset');}
+    function openDailyModal(id){
+        const d=id?D.daily.find(x=>x.id===id):{};
+        modal(id?'Edit Routine':'Add Routine',`
+            <div class="form-group"><label class="form-label">Task</label><input class="form-input" id="dTitle" value="${d.title||''}"></div>
+            <div class="form-group"><label class="form-label">Time</label><input type="time" class="form-input" id="dTime" value="${d.time||'09:00'}"></div>
+            <button class="btn btn-primary" onclick="saveDaily('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editDaily(id){openDailyModal(id);}
+    function saveDaily(id){
+        const obj={title:document.getElementById('dTitle').value,time:document.getElementById('dTime').value,done:false};
+        if(!obj.title)return toast('Task required','error');
+        if(id){const d=D.daily.find(x=>x.id===id);Object.assign(d,obj);}else{obj.id='D'+Date.now();D.daily.push(obj);}
+        closeModal();renderDaily();toast(id?'Routine updated':'Routine added');
+    }
+    function deleteDaily(id){D.daily=D.daily.filter(x=>x.id!==id);renderDaily();toast('Routine deleted');}
+    
+    // ========== MEETINGS ==========
+    function renderMeetings(){
+        document.getElementById('meetings-list').innerHTML=D.meetings.map(m=>`
+            <li class="list-item">
+                <div class="list-item-content">
+                    <div class="list-item-title">${m.title}</div>
+                    <div class="list-item-sub">${m.date} at ${m.time} • ${m.platform}</div>
+                </div>
+                <div class="list-item-actions">
+                    <span class="tag tag-${m.status}">${m.status}</span>
+                    <button class="btn btn-sm btn-secondary" onclick="editMeeting('${m.id}')">✏️</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteMeeting('${m.id}')">🗑️</button>
+                </div>
+            </li>
+        `).join('')||'<div class="empty-state">No meetings</div>';
+    }
+    function openMeetingModal(id){
+        const m=id?D.meetings.find(x=>x.id===id):{};
+        modal(id?'Edit Meeting':'Schedule Meeting',`
+            <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mTitle" value="${m.title||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-input" id="mDate" value="${m.date||''}"></div>
+                <div class="form-group"><label class="form-label">Time</label><input class="form-input" id="mTime" value="${m.time||''}" placeholder="e.g., 14:00 IST"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Platform</label><select class="form-input form-select" id="mPlatform">
+                    <option ${m.platform==='Zoom'?'selected':''}>Zoom</option><option ${m.platform==='Google Meet'?'selected':''}>Google Meet</option>
+                    <option ${m.platform==='Phone'?'selected':''}>Phone</option><option ${m.platform==='TBD'?'selected':''}>TBD</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="mStatus">
+                    <option ${m.status==='scheduled'?'selected':''}>scheduled</option><option ${m.status==='pending'?'selected':''}>pending</option><option ${m.status==='completed'?'selected':''}>completed</option>
+                </select></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveMeeting('${id||''}')">${id?'Update':'Schedule'}</button>
+        `);
+    }
+    function editMeeting(id){openMeetingModal(id);}
+    function saveMeeting(id){
+        const obj={title:document.getElementById('mTitle').value,date:document.getElementById('mDate').value,time:document.getElementById('mTime').value,platform:document.getElementById('mPlatform').value,status:document.getElementById('mStatus').value};
+        if(!obj.title)return toast('Title required','error');
+        if(id){const m=D.meetings.find(x=>x.id===id);Object.assign(m,obj);}else{obj.id='M'+Date.now();D.meetings.push(obj);}
+        closeModal();renderMeetings();toast(id?'Meeting updated':'Meeting scheduled');
+    }
+    function deleteMeeting(id){D.meetings=D.meetings.filter(x=>x.id!==id);renderMeetings();toast('Meeting deleted');}
+    
+    // ========== PARTNERS ==========
+    function renderCollabs(){
+        document.getElementById('collabs-list').innerHTML=D.collabs.map(c=>`
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-card-title">${c.name}</div>
+                    <div class="item-card-actions">
+                        <span class="tag tag-${c.status}">${c.status}</span>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editCollab('${c.id}')">✏️</button>
+                        <button class="btn btn-sm btn-icon btn-danger" onclick="deleteCollab('${c.id}')">🗑️</button>
+                    </div>
+                </div>
+                <div class="item-card-meta">${c.project} • ${c.role}</div>
+            </div>
+        `).join('');
+    }
+    function openCollabModal(id){
+        const c=id?D.collabs.find(x=>x.id===id):{};
+        modal(id?'Edit Partner':'Add Partner',`
+            <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="colName" value="${c.name||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Project</label><input class="form-input" id="colProject" value="${c.project||''}"></div>
+                <div class="form-group"><label class="form-label">Role</label><select class="form-input form-select" id="colRole">
+                    <option ${c.role==='Partner'?'selected':''}>Partner</option><option ${c.role==='Client'?'selected':''}>Client</option>
+                    <option ${c.role==='Collaborator'?'selected':''}>Collaborator</option><option ${c.role==='Vendor'?'selected':''}>Vendor</option>
+                </select></div>
+            </div>
+            <div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="colStatus">
+                <option ${c.status==='active'?'selected':''}>active</option><option ${c.status==='paused'?'selected':''}>paused</option>
+            </select></div>
+            <button class="btn btn-primary" onclick="saveCollab('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editCollab(id){openCollabModal(id);}
+    function saveCollab(id){
+        const obj={name:document.getElementById('colName').value,project:document.getElementById('colProject').value,role:document.getElementById('colRole').value,status:document.getElementById('colStatus').value};
+        if(!obj.name)return toast('Name required','error');
+        if(id){const c=D.collabs.find(x=>x.id===id);Object.assign(c,obj);}else{obj.id='COL'+Date.now();D.collabs.push(obj);}
+        closeModal();renderCollabs();toast(id?'Partner updated':'Partner added');
+    }
+    function deleteCollab(id){if(confirm('Delete partner?')){D.collabs=D.collabs.filter(x=>x.id!==id);renderCollabs();toast('Partner deleted');}}
+    
+    // ========== FOLLOW-UPS ==========
+    function renderFollowups(){
+        document.getElementById('followups-list').innerHTML=D.followups.map(f=>`
+            <li class="list-item">
+                <div class="list-item-content">
+                    <div class="list-item-title">${f.person}</div>
+                    <div class="list-item-sub">${f.topic}</div>
+                </div>
+                <div class="list-item-actions">
+                    <span class="tag tag-${f.priority}">${f.due}</span>
+                    <button class="btn btn-sm btn-success" onclick="deleteFollowup('${f.id}')">✓ Done</button>
+                    <button class="btn btn-sm btn-secondary" onclick="editFollowup('${f.id}')">✏️</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteFollowup('${f.id}')">🗑️</button>
+                </div>
+            </li>
+        `).join('')||'<div class="empty-state">No follow-ups</div>';
+        
+        document.getElementById('overview-followups').innerHTML=D.followups.slice(0,4).map(f=>`
+            <li class="list-item"><div class="list-item-content"><div class="list-item-title">${f.person}</div><div class="list-item-sub">${f.topic}</div></div>
+            <span class="tag tag-${f.priority}">${f.due}</span></li>
+        `).join('')||'<div class="empty-state">No follow-ups</div>';
+    }
+    function openFollowupModal(id){
+        const f=id?D.followups.find(x=>x.id===id):{};
+        modal(id?'Edit Follow-up':'Add Follow-up',`
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Person</label><input class="form-input" id="fPerson" value="${f.person||''}"></div>
+                <div class="form-group"><label class="form-label">Priority</label><select class="form-input form-select" id="fPriority">
+                    <option ${f.priority==='high'?'selected':''}>high</option><option ${f.priority==='medium'?'selected':''}>medium</option><option ${f.priority==='low'?'selected':''}>low</option>
+                </select></div>
+            </div>
+            <div class="form-group"><label class="form-label">Topic</label><input class="form-input" id="fTopic" value="${f.topic||''}"></div>
+            <div class="form-group"><label class="form-label">Due Date</label><input type="date" class="form-input" id="fDue" value="${f.due||''}"></div>
+            <button class="btn btn-primary" onclick="saveFollowup('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editFollowup(id){openFollowupModal(id);}
+    function saveFollowup(id){
+        const obj={person:document.getElementById('fPerson').value,topic:document.getElementById('fTopic').value,due:document.getElementById('fDue').value,priority:document.getElementById('fPriority').value};
+        if(!obj.person)return toast('Person required','error');
+        if(id){const f=D.followups.find(x=>x.id===id);Object.assign(f,obj);}else{obj.id='F'+Date.now();D.followups.push(obj);}
+        closeModal();renderFollowups();toast(id?'Follow-up updated':'Follow-up added');
+    }
+    function deleteFollowup(id){D.followups=D.followups.filter(x=>x.id!==id);renderFollowups();toast('Follow-up completed');}
+    
+    // ========== FINANCE ==========
+    function renderFinance(){
+        const months={feb:'February',mar:'March',jun:'June',dec:'December'};
+        document.getElementById('finance-targets').innerHTML=Object.entries(D.finance.targets).map(([k,v])=>`
+            <div class="sub-row"><span>${months[k]} 2026</span><span style="font-family:'JetBrains Mono';color:var(--gold)">$${v.toLocaleString()}</span></div>
+        `).join('');
+        
+        const total=Object.values(D.finance.expenses).reduce((a,b)=>a+b,0);
+        document.getElementById('finance-expenses').innerHTML=Object.entries(D.finance.expenses).map(([k,v])=>`
+            <div class="sub-row"><span style="text-transform:capitalize">${k}</span><span style="font-family:'JetBrains Mono';color:var(--gold)">$${v}</span></div>
+        `).join('')+`<div class="sub-row" style="border-top:1px solid var(--border);padding-top:0.5rem;"><strong>Total</strong><span style="font-family:'JetBrains Mono';color:var(--gold)">$${total}/mo</span></div>`;
+        
+        document.getElementById('subscriptions-list').innerHTML=D.subscriptions.map(s=>`
+            <div class="sub-row">
+                <div><span style="font-weight:500">${s.name}</span>${s.note?`<span style="font-size:0.7rem;color:var(--text-muted);margin-left:0.5rem">${s.note}</span>`:''}</div>
+                <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="font-family:'JetBrains Mono';color:var(--gold)">$${s.cost}</span>
+                    <span class="tag tag-${s.status}">${s.status}</span>
+                    <button class="btn btn-sm btn-icon btn-secondary" onclick="editSubscription('${s.id}')">✏️</button>
+                    <button class="btn btn-sm btn-icon btn-danger" onclick="deleteSubscription('${s.id}')">🗑️</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    function openFinanceModal(){
+        modal('Edit Revenue Targets',`
+            <div class="form-row"><div class="form-group"><label class="form-label">February</label><input type="number" class="form-input" id="finFeb" value="${D.finance.targets.feb}"></div>
+            <div class="form-group"><label class="form-label">March</label><input type="number" class="form-input" id="finMar" value="${D.finance.targets.mar}"></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label">June</label><input type="number" class="form-input" id="finJun" value="${D.finance.targets.jun}"></div>
+            <div class="form-group"><label class="form-label">December</label><input type="number" class="form-input" id="finDec" value="${D.finance.targets.dec}"></div></div>
+            <button class="btn btn-primary" onclick="saveFinance()">Update</button>
+        `);
+    }
+    function saveFinance(){
+        D.finance.targets.feb=parseInt(document.getElementById('finFeb').value)||0;
+        D.finance.targets.mar=parseInt(document.getElementById('finMar').value)||0;
+        D.finance.targets.jun=parseInt(document.getElementById('finJun').value)||0;
+        D.finance.targets.dec=parseInt(document.getElementById('finDec').value)||0;
+        closeModal();renderFinance();toast('Targets updated');
+    }
+    function openSubscriptionModal(id){
+        const s=id?D.subscriptions.find(x=>x.id===id):{};
+        modal(id?'Edit Subscription':'Add Subscription',`
+            <div class="form-row"><div class="form-group"><label class="form-label">Name</label><input class="form-input" id="subName" value="${s.name||''}"></div>
+            <div class="form-group"><label class="form-label">Cost ($)</label><input type="number" class="form-input" id="subCost" value="${s.cost||0}"></div></div>
+            <div class="form-row"><div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="subStatus">
+                <option ${s.status==='active'?'selected':''}>active</option><option ${s.status==='pending'?'selected':''}>pending</option><option ${s.status==='blocked'?'selected':''}>blocked</option>
+            </select></div>
+            <div class="form-group"><label class="form-label">Note</label><input class="form-input" id="subNote" value="${s.note||''}"></div></div>
+            <button class="btn btn-primary" onclick="saveSubscription('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editSubscription(id){openSubscriptionModal(id);}
+    function saveSubscription(id){
+        const obj={name:document.getElementById('subName').value,cost:parseInt(document.getElementById('subCost').value)||0,status:document.getElementById('subStatus').value,note:document.getElementById('subNote').value};
+        if(!obj.name)return toast('Name required','error');
+        if(id){const s=D.subscriptions.find(x=>x.id===id);Object.assign(s,obj);}else{obj.id='S'+Date.now();D.subscriptions.push(obj);}
+        closeModal();renderFinance();toast(id?'Subscription updated':'Subscription added');
+    }
+    function deleteSubscription(id){D.subscriptions=D.subscriptions.filter(x=>x.id!==id);renderFinance();toast('Subscription deleted');}
+    
+    // ========== COMPANIES ==========
+    function renderCompanies(){
+        document.getElementById('companies-list').innerHTML=D.companies.map(c=>`
+            <div class="item-card">
+                <div class="item-card-header">
+                    <div class="item-card-title">${c.name}</div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editCompany('${c.id}')">✏️</button>
+                        <button class="btn btn-sm btn-icon btn-danger" onclick="deleteCompany('${c.id}')">🗑️</button>
+                    </div>
+                </div>
+                <div class="item-card-meta">${c.type}</div>
+                <div style="display:flex;gap:0.3rem;margin-top:0.5rem;flex-wrap:wrap;">
+                    <span class="tag tag-${c.status==='active'?'active':c.status==='pre-launch'?'pending':'low'}">${c.status}</span>
+                    ${c.launch?`<span style="font-size:0.7rem;color:var(--text-muted)">Launch: ${c.launch}</span>`:''}
+                    ${c.pricing?`<span style="font-size:0.7rem;color:var(--gold)">${c.pricing}</span>`:''}
+                </div>
+            </div>
+        `).join('');
+    }
+    function openCompanyModal(id){
+        const c=id?D.companies.find(x=>x.id===id):{};
+        modal(id?'Edit Company':'Add Company',`
+            <div class="form-group"><label class="form-label">Name</label><input class="form-input" id="coName" value="${c.name||''}"></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Type</label><select class="form-input form-select" id="coType">
+                    <option ${c.type==='SaaS'?'selected':''}>SaaS</option><option ${c.type==='Agency'?'selected':''}>Agency</option>
+                    <option ${c.type==='Holding'?'selected':''}>Holding</option><option ${c.type==='Product'?'selected':''}>Product</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Status</label><select class="form-input form-select" id="coStatus">
+                    <option ${c.status==='concept'?'selected':''}>concept</option><option ${c.status==='MVP'?'selected':''}>MVP</option>
+                    <option ${c.status==='pre-launch'?'selected':''}>pre-launch</option><option ${c.status==='active'?'selected':''}>active</option>
+                </select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Launch Date</label><input type="date" class="form-input" id="coLaunch" value="${c.launch||''}"></div>
+                <div class="form-group"><label class="form-label">Pricing</label><input class="form-input" id="coPricing" value="${c.pricing||''}" placeholder="e.g., $47-197"></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveCompany('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editCompany(id){openCompanyModal(id);}
+    function saveCompany(id){
+        const obj={name:document.getElementById('coName').value,type:document.getElementById('coType').value,status:document.getElementById('coStatus').value,launch:document.getElementById('coLaunch').value,pricing:document.getElementById('coPricing').value};
+        if(!obj.name)return toast('Name required','error');
+        if(id){const c=D.companies.find(x=>x.id===id);Object.assign(c,obj);}else{obj.id='CO'+Date.now();D.companies.push(obj);}
+        closeModal();renderCompanies();toast(id?'Company updated':'Company added');
+    }
+    function deleteCompany(id){if(confirm('Delete company?')){D.companies=D.companies.filter(x=>x.id!==id);renderCompanies();toast('Company deleted');}}
+    
+    // ========== IDEAS ==========
+    function renderIdeas(){
+        document.getElementById('ideas-list').innerHTML=D.ideas.map(i=>`
+            <div class="item-card" style="background:var(--bg-hover)">
+                <div class="item-card-header">
+                    <div class="item-card-title" style="font-weight:400">${i.text}</div>
+                    <div class="item-card-actions">
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editIdea('${i.id}')">✏️</button>
+                        <button class="btn btn-sm btn-icon btn-danger" onclick="deleteIdea('${i.id}')">🗑️</button>
+                    </div>
+                </div>
+                <div style="display:flex;gap:0.3rem;"><span class="tag tag-${i.potential}">${i.potential}</span><span style="font-size:0.7rem;color:var(--text-muted)">${i.category}</span></div>
+            </div>
+        `).join('');
+    }
+    function openIdeaModal(id){
+        const i=id?D.ideas.find(x=>x.id===id):{};
+        modal(id?'Edit Idea':'Add Idea',`
+            <div class="form-group"><label class="form-label">Idea</label><textarea class="form-input" id="iText" rows="3">${i.text||''}</textarea></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Category</label><select class="form-input form-select" id="iCategory">
+                    <option ${i.category==='Product'?'selected':''}>Product</option><option ${i.category==='SaaS'?'selected':''}>SaaS</option>
+                    <option ${i.category==='AI'?'selected':''}>AI</option><option ${i.category==='Education'?'selected':''}>Education</option>
+                    <option ${i.category==='Creative'?'selected':''}>Creative</option>
+                </select></div>
+                <div class="form-group"><label class="form-label">Potential</label><select class="form-input form-select" id="iPotential">
+                    <option ${i.potential==='high'?'selected':''}>high</option><option ${i.potential==='medium'?'selected':''}>medium</option><option ${i.potential==='low'?'selected':''}>low</option>
+                </select></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveIdea('${id||''}')">${id?'Update':'Add'}</button>
+        `);
+    }
+    function editIdea(id){openIdeaModal(id);}
+    function saveIdea(id){
+        const obj={text:document.getElementById('iText').value,category:document.getElementById('iCategory').value,potential:document.getElementById('iPotential').value};
+        if(!obj.text)return toast('Idea required','error');
+        if(id){const i=D.ideas.find(x=>x.id===id);Object.assign(i,obj);}else{obj.id='I'+Date.now();D.ideas.unshift(obj);}
+        closeModal();renderIdeas();toast(id?'Idea updated':'Idea added');
+    }
+    function deleteIdea(id){D.ideas=D.ideas.filter(x=>x.id!==id);renderIdeas();toast('Idea deleted');}
+    
+    // ========== STATS ==========
+    function updateStats(){
+        document.getElementById('stat-leads').textContent=D.leads.length;
+        document.getElementById('stat-campaigns').textContent=D.campaigns.length;
+        document.getElementById('stat-tasks').textContent=D.tasks.filter(t=>!t.done).length;
+        document.getElementById('stat-projects').textContent=D.projects.length;
+        document.getElementById('stat-companies').textContent=D.companies.length;
+        document.getElementById('stat-followups').textContent=D.followups.length;
+    }
+    
+    // ========== RENDER ALL ==========
+    function renderAll(){
+        renderCampaigns();renderKanban();renderTasks();renderProjects();renderDaily();
+        renderMeetings();renderCollabs();renderFollowups();renderFinance();renderCompanies();renderIdeas();updateStats();
+    }
+    renderAll();
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+{
+  "lastUpdated": "2026-02-07T11:58:00+05:30",
+  "projects": {
+    "chrome_extensions": {
+      "name": "💎 Chrome Extensions",
+      "status": "building",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Chrome_Extensions/",
+        "clickup": "https://app.clickup.com/90161379676/v/f/90168423401"
+      },
+      "files": [
+        {"name": "Top 50 Extensions Analysis", "path": "Projects/Chrome_Extensions/TOP_50_EXTENSIONS_ANALYSIS.md", "type": "research"},
+        {"name": "Business Guide", "path": "Projects/Chrome_Extensions/CHROME_EXTENSION_BUSINESS_GUIDE.md", "type": "guide"},
+        {"name": "Parallel Build Management", "path": "Projects/Chrome_Extensions/PARALLEL_BUILD_MANAGEMENT.md", "type": "plan"}
+      ],
+      "teams": [
+        {"name": "Divine Opportunity Finder", "path": "Divine_Teams/20_Divine_Opportunity_Finder_Team.md"},
+        {"name": "Divine Chrome Extension Team", "path": "Divine_Teams/21_Divine_Chrome_Extension_Team.md"}
+      ],
+      "links": [
+        {"name": "Chrome Dev Console", "url": "https://chrome.google.com/webstore/devconsole"},
+        {"name": "Chrome Policies", "url": "https://developer.chrome.com/docs/webstore/program-policies"},
+        {"name": "ExtensionPay", "url": "https://extensionpay.com"}
+      ]
+    },
+    "ai_prosperity": {
+      "name": "🚀 AI Prosperity 4.0",
+      "status": "active",
+      "launchDate": "2026-03-11",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/AI_Prosperity/",
+        "icloud": "/Users/yashaswisugatoor/Library/Mobile Documents/com~apple~CloudDocs/Documents/Divine Success Flow/AI Projects/"
+      },
+      "files": [
+        {"name": "Launch Tracker", "path": "Projects/AI_Prosperity/LAUNCH_TRACKER.md", "type": "tracker"},
+        {"name": "Feb 7 Content", "path": "Projects/AI_Prosperity/content/2026-02-07_content.md", "type": "content"},
+        {"name": "Landing Page", "path": "Projects/AI_Prosperity/landing_page.html", "type": "asset"}
+      ],
+      "links": [
+        {"name": "AI Genie Form", "url": "https://forms.gle/zgQ7T6cJuQtojezg9"}
+      ]
+    },
+    "passenger_payback": {
+      "name": "✈️ Passenger Payback",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Passenger_Payback/",
+        "icloud": "/Users/yashaswisugatoor/Library/Mobile Documents/com~apple~CloudDocs/Documents/Divine Success Flow/AI Projects/PASSENGER PAYBACK AI PROJECT/"
+      },
+      "files": [
+        {"name": "Business Document", "path": "Projects/Passenger_Payback/DETAILED_BUSINESS_DOCUMENT.md", "type": "doc"},
+        {"name": "US Aviation Laws", "path": "Projects/Passenger_Payback/US_AVIATION_LAWS_COMPLETE.md", "type": "research"},
+        {"name": "App Store Guide", "path": "Projects/Passenger_Payback/APPLE_APP_STORE_GUIDE.md", "type": "guide"}
+      ],
+      "links": []
+    },
+    "divine_wisdom": {
+      "name": "📚 Divine Wisdom",
+      "status": "downloading",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Divine_Wisdom/",
+        "icloud": "/Users/yashaswisugatoor/Library/Mobile Documents/com~apple~CloudDocs/Temp/Divine_Wisdom_Data/",
+        "supabase": "https://supabase.com/dashboard/project/tbhvbscfnhpobkigigxf"
+      },
+      "files": [
+        {"name": "README", "path": "Projects/Divine_Wisdom/README.md", "type": "doc"},
+        {"name": "Vedic Heritage Sitemap", "path": "Projects/Divine_Wisdom/VEDIC_HERITAGE_SITEMAP.md", "type": "research"},
+        {"name": "Manual Actions", "path": "Projects/Divine_Wisdom/MANUAL_ACTIONS_REQUIRED.md", "type": "todo"}
+      ],
+      "links": [
+        {"name": "Vedic Heritage Portal", "url": "https://vedicheritage.gov.in"},
+        {"name": "Sanskrit Documents", "url": "https://sanskritdocuments.org"},
+        {"name": "Encyclopaedia of Encyclopaedias", "url": "https://encyclopaediaofencyclopaedias.com"}
+      ]
+    },
+    "divine_teams": {
+      "name": "👥 Divine Teams",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Divine_Teams/"
+      },
+      "files": [
+        {"name": "Team Development Framework", "path": "Divine_Teams/TEAM_DEVELOPMENT_FRAMEWORK.md", "type": "guide"},
+        {"name": "Team Tool Task Matrix", "path": "Divine_Teams/TEAM_TOOL_TASK_MATRIX.md", "type": "reference"},
+        {"name": "Full Dev Team", "path": "Divine_Teams/10_Divine_Dev_Team_FULL.md", "type": "team"}
+      ],
+      "links": []
+    },
+    "ai_leads_engine": {
+      "name": "🎯 AI Leads Engine",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Clients/AI_Leads_Engine/"
+      },
+      "files": [
+        {"name": "All Leads Analysis", "path": "Clients/AI_Leads_Engine/ALL_LEADS_ANALYSIS.md", "type": "data"}
+      ],
+      "links": [
+        {"name": "Google Sheet", "url": "https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/"}
+      ]
+    },
+    "viral_content_30day": {
+      "name": "📱 30-Day Viral Content",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Clients/30_Day_Viral_Content/"
+      },
+      "files": [
+        {"name": "All Leads", "path": "Clients/30_Day_Viral_Content/ALL_LEADS.md", "type": "data"},
+        {"name": "Personalized DMs", "path": "Clients/30_Day_Viral_Content/PERSONALIZED_DMS.md", "type": "outreach"}
+      ],
+      "links": [
+        {"name": "Google Sheet", "url": "https://docs.google.com/spreadsheets/d/1byjsPYEEDUFhdZ0mECZrEIfJf19Cov7zC6RANy8SG1M/"}
+      ]
+    },
+    "youtube_ai_teams": {
+      "name": "🎬 AI Teams from YouTube",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Knowledge_Base/YouTube_Transcripts/"
+      },
+      "files": [
+        {"name": "Transcription Project", "path": "Knowledge_Base/TRANSCRIPTION_PROJECT.md", "type": "plan"}
+      ],
+      "stats": {
+        "transcripts": 3241,
+        "creators": 40,
+        "teams": 10
+      },
+      "links": []
+    },
+    "speaker_blueprint": {
+      "name": "🎤 Speaker Blueprint System",
+      "status": "deployed",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Speaker_Blueprint_System/"
+      },
+      "files": [
+        {"name": "Landing Page", "path": "Projects/Speaker_Blueprint_System/index.html", "type": "asset"}
+      ],
+      "links": [
+        {"name": "Live Site", "url": "https://divinesuccessflow.github.io/speaker-blueprint-system/"}
+      ]
+    },
+    "growth_campaigns": {
+      "name": "📈 LinkedIn 50K + Skool 2K",
+      "status": "active",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Growth_Campaigns/"
+      },
+      "files": [
+        {"name": "Strategy", "path": "Projects/Growth_Campaigns/SKOOL_2000_LINKEDIN_50K_STRATEGY.md", "type": "plan"},
+        {"name": "Top 100 LinkedIn Creators", "path": "Knowledge_Base/TOP_100_LINKEDIN_CREATORS.md", "type": "research"},
+        {"name": "LinkedIn Writing Mastery", "path": "Divine_Teams/Skills/LINKEDIN_WRITING_MASTERY.md", "type": "skill"}
+      ],
+      "links": []
+    },
+    "command_center": {
+      "name": "🎯 Command Center",
+      "status": "deployed",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Projects/Command_Center/"
+      },
+      "files": [
+        {"name": "Dashboard", "path": "Projects/Command_Center/index.html", "type": "app"},
+        {"name": "Data", "path": "Projects/Command_Center/data/dashboard_data.json", "type": "data"},
+        {"name": "Resources", "path": "Projects/Command_Center/data/resources.json", "type": "data"}
+      ],
+      "links": [
+        {"name": "Dashboard", "url": "http://localhost:3003"}
+      ]
+    }
+  },
+  "campaigns": {
+    "ai_leads_engine": {
+      "name": "AI Leads Engine Campaign",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1sNxITGDUBN6cU-_ETZe-WFPmteM3YFi-QzfRQRUyw8Y/",
+      "leads": 14,
+      "hot": 4,
+      "resources": ["Clients/AI_Leads_Engine/ALL_LEADS_ANALYSIS.md"]
+    },
+    "30day_viral": {
+      "name": "30-Day Viral Content",
+      "sheetUrl": "https://docs.google.com/spreadsheets/d/1byjsPYEEDUFhdZ0mECZrEIfJf19Cov7zC6RANy8SG1M/",
+      "leads": 24,
+      "hot": 16,
+      "resources": ["Clients/30_Day_Viral_Content/ALL_LEADS.md", "Clients/30_Day_Viral_Content/PERSONALIZED_DMS.md"]
+    }
+  },
+  "clients": {
+    "daniel_melendez": {
+      "name": "Daniel Meléndez",
+      "project": "Aviation Webinar",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Clients/Daniel_Melendez/"
+      },
+      "files": [
+        {"name": "1000 Personalized Emails", "path": "Clients/Daniel_Melendez/personalized_emails_1000.csv", "type": "data"}
+      ],
+      "links": []
+    },
+    "mike_pulley": {
+      "name": "Mike (Passenger Payback)",
+      "project": "Passenger Payback App",
+      "folders": {
+        "icloud": "/Users/yashaswisugatoor/Library/Mobile Documents/com~apple~CloudDocs/Documents/Divine Success Flow/AI Projects/PASSENGER PAYBACK AI PROJECT/"
+      },
+      "files": [],
+      "links": []
+    },
+    "nandini": {
+      "name": "Nandini",
+      "project": "Success Masterclass",
+      "status": "paused",
+      "folders": {
+        "local": "/Users/yashaswisugatoor/clawd/Clients/Nandini/"
+      },
+      "files": [
+        {"name": "Project Brief", "path": "Clients/Nandini/PROJECT_BRIEF.md", "type": "doc"},
+        {"name": "Funnel Strategy", "path": "Clients/Nandini/FUNNEL_STRATEGY.md", "type": "strategy"},
+        {"name": "WhatsApp Sequences", "path": "Clients/Nandini/WHATSAPP_SEQUENCES.md", "type": "outreach"}
+      ],
+      "links": []
+    }
+  },
+  "knowledge": {
+    "sanskrit": {
+      "name": "Sanskrit & Vedic",
+      "folder": "/Users/yashaswisugatoor/clawd/Knowledge_Base/Sanskrit/",
+      "files": [
+        "COMPLETE_HINDU_SCRIPTURES.md",
+        "SUBHASHITANI_COMPLETE_RESEARCH.md"
+      ]
+    },
+    "blueprints": {
+      "name": "Speaker Blueprints",
+      "folder": "/Users/yashaswisugatoor/clawd/Knowledge_Base/Blueprints/",
+      "files": [
+        "TOP_10_MINDVALLEY_SPEAKERS_BLUEPRINT.md",
+        "BRENDON_BURCHARD_DETAILED_BLUEPRINT.md",
+        "JAY_SHETTY_DETAILED_BLUEPRINT.md"
+      ]
+    },
+    "research": {
+      "name": "Research & Analysis",
+      "files": [
+        {"name": "Thank You Page Analysis", "path": "Knowledge_Base/THANK_YOU_PAGE_WHATSAPP_ANALYSIS.md"},
+        {"name": "Energy Mastery Protocol", "path": "Knowledge_Base/ENERGY_MASTERY_PROTOCOL.md"},
+        {"name": "Discovery Principle", "path": "Knowledge_Base/DISCOVERY_PRINCIPLE.md"},
+        {"name": "Scripture Sources", "path": "Knowledge_Base/SCRIPTURE_SOURCES_COMPLETE.md"}
+      ]
+    }
+  },
+  "infrastructure": {
+    "711_os": {
+      "name": "711 Business OS",
+      "folder": "/Users/yashaswisugatoor/clawd/711_OS/",
+      "stats": {"folders": 10, "files": 56, "size": "1.1MB"}
+    },
+    "memory": {
+      "name": "Memory System",
+      "files": [
+        "MEMORY.md",
+        "memory/2026-02-07.md",
+        "memory/2026-02-06.md",
+        "memory/2026-02-05.md"
+      ]
+    }
+  }
+}
