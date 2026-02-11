@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-11T07:44:05.360808",
+  "lastUpdated": "2026-02-11T09:09:10.669550",
   "projects": [
     {
       "id": "AI_Prosperity",
@@ -65,20 +65,12 @@
       "size_mb": 0.03
     },
     {
-      "id": "openclaw_sidebar",
-      "name": "\u2600\ufe0f OpenClaw Sidebar",
-      "type": "chrome_extension",
+      "id": "punch_tantra",
+      "name": "\ud83e\udd9c Punch-Tantra",
+      "type": "content_series",
       "status": "complete",
-      "path": "Projects/Chrome_Extensions/openclaw-sidebar",
-      "created": "2026-02-11"
-    },
-    {
-      "id": "ai_entrepreneur_course",
-      "name": "\u2600\ufe0f AI Entrepreneur (10 Weeks)",
-      "type": "course",
-      "status": "complete",
-      "path": "Projects/Courses/AI_Entrepreneur_10_Weeks",
-      "pricing": "$297 / $997 / $2,997 / $9,997",
+      "path": "Projects/Branding/PUNCH_TANTRA.md",
+      "description": "Ancient wisdom, modern punch - business fables",
       "created": "2026-02-11"
     }
   ],
@@ -236,47 +228,5 @@
       "due": "2026-02-10",
       "priority": "medium"
     }
-  ],
-  "knowledge_assets": [
-    {
-      "id": "Silent_Communication",
-      "name": "\ud83c\udfad Silent Communication Framework",
-      "type": "knowledge",
-      "status": "complete",
-      "created": "2026-02-11"
-    },
-    {
-      "id": "Surya_Symbol",
-      "name": "\u2600\ufe0f Surya Brand Symbol",
-      "type": "branding",
-      "status": "complete",
-      "created": "2026-02-11"
-    },
-    {
-      "id": "Vision_Statement",
-      "name": "\u2600\ufe0f The Vision",
-      "type": "philosophy",
-      "status": "complete",
-      "created": "2026-02-11"
-    }
-  ],
-  "brand": {
-    "symbol": "\u2600\ufe0f Surya",
-    "tagline": "Where Divine Meets Digital",
-    "principles": [
-      "Shine Regardless",
-      "Benefit All",
-      "Rise Daily",
-      "Be Indifferent",
-      "Pull Don't Push"
-    ],
-    "vision": "Every human = Entrepreneur. End of slavery. Living in Mastery.",
-    "mission": "Accelerate transition from slavery to mastery through AI"
-  },
-  "security": {
-    "last_audit": "2026-02-11T07:31:21.794322",
-    "status": "warnings",
-    "critical": 0,
-    "warnings": 3
-  }
+  ]
 }
